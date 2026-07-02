@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Marathon Performance Continuum — from average runner to GOAT</title>
+<meta name="description" content="Where does any marathon time fall among 32,000 real finishers, and how superhuman is the world record? A distribution + Extreme Value Theory study.">
+<style>
+  :root{ --paper:#FBF8F1; --ink:#1a1a2e; --wine:#7a1f2b; --gold:#D4A537; --mut:#6b6656; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.65;}
+  .band{background:var(--ink);color:var(--paper);}
+  .band svg{display:block;width:100%;height:auto}
+  .wrap{max-width:760px;margin:0 auto;padding:0 22px;}
+  header .wrap{padding:38px 22px 30px;}
+  h1{font-size:2.15rem;line-height:1.15;margin:0 0 10px;}
+  .sub{font-size:1.15rem;color:#d8d2c4;margin:0;font-style:italic;}
+  h2{font-size:1.5rem;margin:2.4em 0 .5em;border-bottom:2px solid var(--gold);padding-bottom:.2em;}
+  p{margin:.8em 0;} .lead{font-size:1.18rem;}
+  figure{margin:1.6em 0;text-align:center;}
+  figure img{max-width:100%;height:auto;border:1px solid #e7e0d0;border-radius:6px;background:#fff;}
+  figcaption{font-size:.92rem;color:var(--mut);margin-top:.5em;font-style:italic;}
+  .stats{display:flex;flex-wrap:wrap;gap:14px;margin:1.4em 0;}
+  .stat{flex:1 1 150px;background:#fff;border:1px solid #e7e0d0;border-left:4px solid var(--gold);border-radius:5px;padding:14px 16px;}
+  .stat b{display:block;font-size:1.7rem;color:var(--wine);line-height:1.1;}
+  .stat span{font-size:.9rem;color:var(--mut);}
+  em.k{color:var(--wine);font-style:normal;font-weight:bold;}
+  a{color:var(--wine);}
+  table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.96rem;}
+  th,td{border-bottom:1px solid #e0d9c8;padding:7px 10px;text-align:left;}
+  th{color:var(--mut);font-weight:normal;}
+  footer{border-top:1px solid #e0d9c8;margin-top:3em;padding:22px 0 50px;color:var(--mut);font-size:.92rem;}
+  code{background:#efe9db;padding:.05em .35em;border-radius:3px;font-size:.9em;}
+</style>
+</head>
+<body>
+<div class="band">
+  <svg viewBox="0 0 760 132" preserveAspectRatio="none" role="img" aria-label="a marathon field distribution">
+    <path d="M0,120 C120,120 150,40 250,28 C350,18 430,70 520,92 C610,110 690,116 760,118 L760,120 Z" fill="#2a2a45"/>
+    <path d="M0,120 C120,120 150,40 250,28 C350,18 430,70 520,92 C610,110 690,116 760,118" fill="none" stroke="#7a1f2b" stroke-width="2.5"/>
+    <line x1="70" y1="18" x2="70" y2="120" stroke="#D4A537" stroke-width="3"/>
+  </svg>
+</div>
+<header>
+  <div class="wrap">
+    <h1>The Marathon Performance Continuum</h1>
+    <p class="sub">From the back of the pack to the world record — and where the GOAT lands.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="lead">Everyone who runs a marathon lands somewhere on the same line of human endurance,
+  from a six-hour first-timer to the fastest performance ever recorded. We rarely see the whole line.
+  This draws it — from the <strong>31,842 finishers of the 2014 Boston Marathon</strong> — and asks
+  exactly where the world record falls on it.</p>
+
+  <div class="stats">
+    <div class="stat"><b>3:52</b><span>median finisher — the field is log-normal</span></div>
+    <div class="stat"><b>2:00:35</b><span>world record — faster than all 31,842</span></div>
+    <div class="stat"><b>ξ &lt; 0</b><span>the elite tail is bounded, not heavy (EVT)</span></div>
+  </div>
+
+  <h2>The shape of a field — and the GOAT off its edge</h2>
+  <p>A marathon field is log-normal: a rising shoulder into a peak near 3:30–3:50, then a long tail
+  past six hours. And then there's the record. Kiptum's <em class="k">2:00:35</em> doesn't sit in the
+  fast end of this distribution — it sits <em>beyond</em> it, a gold line to the left of every finisher,
+  faster even than the Boston winner's 2:09. Against this field it is <em class="k">2.4 standard
+  deviations</em> below the mean, and the median runner is <em class="k">93% slower</em>. Elite
+  marathoners aren't the right tail of the amateur curve; they're their own species off its edge.</p>
+  <figure>
+    <img src="figures/continuum.png" alt="Distribution of 32,000 Boston finish times with the world record marked far left">
+    <figcaption>32,000 Boston finishers (log-normal fit in wine) — and the world record far to the left.</figcaption>
+  </figure>
+
+  <h2>How far can the edge go? Extreme Value Theory</h2>
+  <p>To describe the fast edge you can't use the body distribution — you use <strong>Extreme Value
+  Theory</strong>. A Generalized Pareto fit to the fastest 5% returns a shape parameter
+  <em class="k">ξ ≈ −0.15</em>. The sign is the point: below zero means the tail is <em>bounded</em> —
+  it runs into a wall rather than trailing off forever. The data can see the wall's shadow, even if
+  (honestly) it can't pin its exact location.</p>
+  <figure>
+    <img src="figures/evt_tail.png" alt="Generalized Pareto distribution fitted to the fast tail of the field">
+    <figcaption>Peaks-Over-Threshold GPD on the elite tail: a finite, bounded fast edge.</figcaption>
+  </figure>
+
+  <h2>Where do you land?</h2>
+  <p>Give it a time, get your place on the continuum. A serious <em class="k">3:00</em> beats about
+  93% of this already-fast field; <em class="k">4:00</em> lands right at the median — and each is
+  still half a world away from the record.</p>
+  <table>
+    <tr><th>Finish time</th><th>Beats this % of the field</th><th>Slower than the WR by</th></tr>
+    <tr><td>2:30</td><td>99.7%</td><td>24%</td></tr>
+    <tr><td>3:00</td><td>92.6%</td><td>49%</td></tr>
+    <tr><td>3:30</td><td>70.6%</td><td>74%</td></tr>
+    <tr><td>4:00</td><td>43.2%</td><td>99%</td></tr>
+    <tr><td>5:00</td><td>14.4%</td><td>149%</td></tr>
+  </table>
+  <figure>
+    <img src="figures/percentile.png" alt="Percentile curve of finish time vs share of field beaten">
+    <figcaption>Any marathon time, mapped to the share of the Boston field it finishes ahead of.</figcaption>
+  </figure>
+
+  <p style="color:var(--mut);font-size:.95rem;margin-top:2em;">A note on the data: Boston is a
+  <em>qualifying</em> race, so this is the distribution of already-fast, committed runners — not the
+  general public. Every figure here describes <em>this</em> field. A mass-participation race would
+  shift the whole curve slower and make the record look more extreme still.
+  <a href="https://github.com/lyhjeremy/marathon-performance-continuum">Code &amp; method on GitHub.</a></p>
+</main>
+
+<footer>
+  <div class="wrap">
+    Built by <a href="https://github.com/lyhjeremy">Jeremy Lee</a> ·
+    <a href="https://github.com/lyhjeremy/marathon-performance-continuum">source on GitHub</a> ·
+    data from <code>llimllib/bostonmarathon</code> · log-normal + Generalized Pareto via <code>scipy</code>.
+  </div>
+</footer>
+</body>
+</html>

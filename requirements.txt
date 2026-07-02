@@ -1,0 +1,7 @@
+# Data
+pandas>=2.0
+
+# Modeling
+numpy>=1.24
+scipy>=1.10       # log-normal fit + Generalized Pareto (EVT)
+matplotlib>=3.7
