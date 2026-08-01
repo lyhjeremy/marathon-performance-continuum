@@ -3,6 +3,7 @@
 **Where does any marathon time fall among real runners — and just how superhuman is the world record?**
 
 > 🌐 **Overview:** https://lyhjeremy.github.io/marathon-performance-continuum/
+> 📖 **In depth:** https://lyhjeremy.github.io/marathon-performance-continuum/overview/
 
 Fans know a 2-hour marathon is "fast" and a world record is "hard," but rarely in
 numbers you can feel. This project models the full distribution of a real marathon

@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>The Performance Continuum — where your marathon sits, and how far the record is</title>
+<meta name="description" content="Fitting the full distribution of 31,842 Boston finishers, then placing the 2:00:35 world record on it. Extreme Value Theory says the fast tail has a finite edge." />
+<meta name="theme-color" content="#FBF8F1" />
+<meta property="og:title" content="The Performance Continuum" />
+<meta property="og:description" content="A whole marathon field as one distribution, with the world record marked on it. The median runner is 93% slower." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lyhjeremy.github.io/marathon-performance-continuum/overview/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #FBF8F1;
+    --card: #FFFFFF;
+    --plate: #FFFFFF;
+    --ink: #1a1a2e;
+    --ink2: #3d3d55;
+    --muted: #6B7280;
+    --rule: #E5DCC7;
+    --accent: #0E7490;
+    --accent2: #B45309;
+    --link: #7a1f2b;
+    --serif: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+    --sans: 'Source Sans 3', -apple-system, system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+    --shadow: 0 1px 2px rgba(26,26,46,.05), 0 10px 34px rgba(26,26,46,.07);
+    --spine:  92px;
+    --col:    min(100% - 2.6rem, 62rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #14141f;
+      --card: #1c1c2a;
+      --plate: #f7f4ec;
+      --ink: #F2EFE6;
+      --ink2: #C9C4B6;
+      --muted: #918B7D;
+      --rule: #33313f;
+      --accent: #22D3EE;
+      --accent2: #E3BC5E;
+      --link: #E0899A;
+      --shadow: 0 1px 2px rgba(0,0,0,.32), 0 10px 34px rgba(0,0,0,.4);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--serif); font-size: clamp(17px, 0.55rem + 0.6vw, 19.5px);
+    line-height: 1.68; -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  strong { font-weight: 700; color: var(--ink); }
+  code { font-family: var(--mono); font-size: .86em;
+         background: color-mix(in srgb, var(--ink) 7%, transparent);
+         padding: .12em .38em; border-radius: 4px; }
+  .wrap { width: var(--col); margin: 0 auto; }
+
+  .eyebrow { font-family: var(--mono); font-weight: 600; font-size: 11.5px;
+             letter-spacing: .17em; text-transform: uppercase; color: var(--muted);
+             margin: 0 0 14px; }
+
+  .masthead { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; padding: 30px 0 0; }
+  .logo { font-family: var(--sans); font-weight: 800; font-size: 21px;
+          letter-spacing: -.02em; display: flex; align-items: center; gap: 9px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); flex: none; }
+  .tagline { font-size: 15px; color: var(--ink2); font-family: var(--sans); }
+
+  .hero { padding: 44px 0 54px; }
+  .kicker { font-family: var(--sans); font-size: clamp(18px, 2.1vw, 23px); font-weight: 600;
+            color: var(--muted); margin: 0 0 8px; letter-spacing: -.01em; }
+  .hero h1 { font-family: var(--sans); font-size: clamp(37px, 6vw, 72px); font-weight: 800;
+             letter-spacing: -.035em; line-height: 1.04; margin: 0; max-width: 17ch; }
+  .hero-sub { margin: 24px 0 0; font-size: 1.06em; color: var(--ink2); max-width: 60ch; }
+
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; align-items: center; }
+  .btn { display: inline-block; padding: 13px 26px; border-radius: 8px;
+         font-family: var(--sans); font-weight: 700; font-size: 16px;
+         text-decoration: none; border: 1px solid var(--ink); transition: transform .15s ease; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--ink); color: var(--paper); }
+  .textlink { font-family: var(--sans); font-size: 16px; font-weight: 600; color: var(--ink2);
+              text-decoration: underline; text-underline-offset: 4px;
+              text-decoration-thickness: 1px; }
+  .textlink:hover { color: var(--ink); }
+
+  .claims { display: grid; grid-template-columns: 1fr; gap: 0 52px; margin: 50px 0 0; }
+  @media (min-width: 760px) { .claims { grid-template-columns: 1fr 1fr; } }
+  .claim { padding: 18px 0 20px; border-top: 1px solid var(--rule); }
+  .claim:first-child, .claim:nth-child(2) { border-top: 2px solid var(--ink); }
+  @media (max-width: 759px) { .claim:nth-child(2) { border-top: 1px solid var(--rule); } }
+  .claim .n { font-family: var(--sans); font-weight: 800; font-size: 40px; line-height: 1.05;
+              color: var(--accent); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+  .claim h3 { margin: 0 0 6px; }
+  .claim p { margin: 9px 0 0; font-size: 15.5px; color: var(--ink2); line-height: 1.5;
+             font-family: var(--sans); }
+
+  .route { position: relative; padding-bottom: 30px; }
+  .route::before { content: ""; position: absolute; left: calc(var(--spine) / 2); top: 8px;
+                   bottom: 80px; width: 2px; background: var(--rule); }
+  .stop { position: relative; padding: 0 0 76px var(--spine); }
+  .stop::before { content: ""; position: absolute; left: calc(var(--spine) / 2 - 7px); top: 7px;
+                  width: 16px; height: 16px; border-radius: 50%;
+                  background: var(--paper); border: 2px solid var(--ink); box-sizing: border-box; }
+  .stop--key::before { background: var(--accent); border-color: var(--accent); }
+  .stop--warn::before { background: var(--accent2); border-color: var(--accent2); }
+  .stop--end::before { background: var(--ink); }
+
+  h2 { font-family: var(--sans); font-size: clamp(27px, 3.7vw, 38px); font-weight: 800;
+       letter-spacing: -.027em; line-height: 1.13; margin: 12px 0 16px; max-width: 19ch; }
+  h3 { font-family: var(--sans); font-size: 17px; font-weight: 700; margin: 0 0 7px;
+       letter-spacing: -.012em; }
+  .stop p { margin: 0 0 17px; max-width: 60ch; color: var(--ink2); }
+
+  .bignum { font-family: var(--sans); font-weight: 800; font-size: clamp(74px, 10vw, 128px);
+            line-height: .86; letter-spacing: -.05em; margin: 6px 0 4px; color: var(--accent);
+            font-variant-numeric: tabular-nums; }
+  .bignum-note { font-family: var(--sans); font-size: 16px; color: var(--muted); margin: 0 0 20px; }
+
+  /* A white-background chart would glow in dark mode; the plate makes it read
+     as a deliberately printed page instead. */
+  figure { margin: 28px 0 0; }
+  .plate { background: var(--plate); border: 1px solid var(--rule); border-radius: 10px;
+           padding: 14px; box-shadow: var(--shadow); overflow: hidden; }
+  .plate img { border-radius: 4px; }
+  .plate--flush { padding: 0; }
+  .shot { border-radius: 10px; border: 1px solid var(--rule); box-shadow: var(--shadow);
+          overflow: hidden; background: var(--card); }
+  /* min() so the cap never exceeds the column on a phone */
+  .shot--narrow { max-width: min(430px, 100%); }
+  figcaption { margin-top: 11px; font-family: var(--sans); font-size: 14.5px;
+               color: var(--muted); line-height: 1.5; }
+  .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+            gap: 22px; margin-top: 28px; }
+  .panels figure { margin: 0; }
+
+  .pull { margin: 30px 0 0; padding: 20px 25px; border-left: 3px solid var(--accent);
+          background: color-mix(in srgb, var(--accent) 7%, transparent);
+          border-radius: 0 8px 8px 0; }
+  .pull p { margin: 0 0 9px; color: var(--ink); max-width: none; }
+  .pull p:last-of-type { margin: 0; }
+  .pull .who { font-family: var(--mono); font-size: 11px; letter-spacing: .12em;
+               text-transform: uppercase; color: var(--muted); display: block; margin-top: 9px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(238px, 1fr));
+          gap: 1px; margin-top: 28px; background: var(--rule);
+          border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .cell { background: var(--paper); padding: 22px 20px; }
+  .cell p { font-size: 15px; margin: 0; color: var(--ink2); max-width: none;
+            line-height: 1.55; font-family: var(--sans); }
+
+  /* results tables: scroll inside their own box, never the page */
+  .tablewrap { margin-top: 26px; overflow-x: auto; border: 1px solid var(--rule);
+               border-radius: 10px; background: var(--card); }
+  table { border-collapse: collapse; width: 100%; min-width: 480px;
+          font-family: var(--sans); font-size: 15.5px; }
+  th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--rule); }
+  th { font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
+       text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  td { color: var(--ink2); font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: 0; }
+  .win td { color: var(--ink); font-weight: 700;
+            background: color-mix(in srgb, var(--accent) 8%, transparent); }
+
+  /* real terminal output, quoted verbatim */
+  .term { margin-top: 26px; background: #14141f; color: #e6e3da; border-radius: 10px;
+          padding: 18px 20px; overflow-x: auto; box-shadow: var(--shadow);
+          border: 1px solid #2a2a3a; }
+  .term pre { margin: 0; font-family: var(--mono); font-size: 13px; line-height: 1.62;
+              white-space: pre; }
+  .term .c { color: #9aa08f; }
+  .term .g { color: #7fd18f; }
+  .term .y { color: #E3BC5E; }
+
+  .specs { margin-top: 26px; border-top: 1px solid var(--rule); }
+  .spec { display: grid; grid-template-columns: 1fr; gap: 2px;
+          padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  @media (min-width: 700px) { .spec { grid-template-columns: 178px 1fr; gap: 24px; } }
+  .spec dt { font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em;
+             text-transform: uppercase; color: var(--muted); padding-top: 4px; }
+  .spec dd { margin: 0; font-size: 16px; color: var(--ink2); font-family: var(--sans); }
+
+  .close { padding: 6px 0 80px var(--spine); position: relative; }
+  .close h2 { max-width: 20ch; }
+  footer { border-top: 1px solid var(--rule); padding: 28px 0 60px;
+           font-family: var(--sans); font-size: 14.5px; color: var(--muted); }
+  footer a { color: var(--ink2); }
+  footer p { margin: 0 0 8px; }
+
+  @media (max-width: 640px) {
+    :root { --spine: 38px; }
+    .hero { padding: 36px 0 46px; }
+    .stop { padding-bottom: 58px; }
+    .plate { padding: 9px; }
+    .term { padding: 14px 14px; }
+    .term pre { font-size: 11.5px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <div class="logo"><span class="dot" aria-hidden="true"></span>The Performance Continuum</div>
+    <div class="tagline">31,842 finishers and one world record</div>
+  </header>
+
+  <section class="hero">
+    <p class="kicker">Everyone knows a two-hour marathon is fast.</p>
+    <h1>Almost nobody knows how fast, in numbers you can feel.</h1>
+
+    <p class="hero-sub">
+      This takes an entire marathon field — <strong>31,842 Boston finishers</strong> —
+      fits the distribution they actually form, and then marks the world record on
+      it. The record is not near the fast end of this curve. It is
+      <strong>past everyone</strong>, including the man who won the race, and it
+      sits <strong>2.4 standard deviations</strong> below the field mean. The
+      median finisher is <strong>93% slower</strong>.
+    </p>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="../">Read the short version</a>
+      <a class="textlink" href="https://github.com/lyhjeremy/marathon-performance-continuum">or the code and data</a>
+    </div>
+
+    <div class="claims">
+      <div class="claim">
+        <div class="n">3:52</div>
+        <p>the median of a real marathon field. The distribution is log-normal,
+           mean 4:03, tailing out toward seven hours.</p>
+      </div>
+      <div class="claim">
+        <div class="n">2:00:35</div>
+        <p>the world record, faster than all 31,842 finishers — the race winner
+           included, at 2:09.</p>
+      </div>
+      <div class="claim">
+        <div class="n">ξ ≈ −0.15</div>
+        <p>the EVT shape parameter on the fastest 5%. Below zero, so the tail has
+           a finite edge rather than running on forever.</p>
+      </div>
+      <div class="claim">
+        <div class="n">~93%</div>
+        <p>of the field is beaten by a 3:00 marathon. 4:00 lands almost exactly on
+           the median.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+<div class="route">
+
+  <section class="stop">
+    <p class="eyebrow">Start · the question</p>
+    <h2>Two questions that are really one</h2>
+    <p>
+      "Where does my time sit?" and "how superhuman is the record?" are usually
+      asked separately, and both get answered with adjectives. Put on the same
+      axis they answer each other: your time is a point on a curve, and the record
+      is another point on the same curve, a very long way along it.
+    </p>
+    <p>
+      Boston 2014 supplies the curve. It is the largest clean, public marathon
+      field available, with a real distribution rather than a summary.
+    </p>
+  </section>
+
+  <section class="stop stop--key">
+    <p class="eyebrow">↓ the curve</p>
+    <h2>A marathon field is log-normal</h2>
+    <p>
+      Fitted, the field is a textbook log-normal: a median of <strong>3:52</strong>,
+      a mean pulled later to <strong>4:03</strong> by the slow side, and a long
+      right tail out past seven hours. That asymmetry is not noise, it is what a
+      field looks like — you can be very much slower than the middle, but only so
+      much faster.
+    </p>
+    <p>
+      Mark the world record on the same axis and it does not sit at the sharp end
+      of the curve. It sits off it.
+    </p>
+    <figure>
+      <div class="plate">
+        <img width="1425" height="750" src="../figures/continuum.png" fetchpriority="high"
+          alt="Distribution of Boston Marathon finish times with a fitted log-normal curve, and a marker for the 2 hour 35 second world record placed far to the left of the entire field." />
+      </div>
+      <figcaption>The whole field as one distribution, with the record marked well outside it.</figcaption>
+    </figure>
+  </section>
+
+  <section class="stop">
+    <p class="eyebrow">↓ the elite edge</p>
+    <h2>The fast tail has a wall at the end of it</h2>
+
+    <div class="bignum">ξ ≈ −0.15</div>
+    <p class="bignum-note">Peaks-Over-Threshold GPD shape parameter, fitted on the fastest 5%.</p>
+
+    <p>
+      A negative shape parameter is the interesting result. It means the tail is
+      <strong>bounded</strong>: performance does not extend indefinitely into the
+      fast direction but runs into a finite edge. That is consistent with a hard
+      human ceiling, which is what most people assume but rarely test.
+    </p>
+    <p>
+      What it deliberately does <em>not</em> do is name the ceiling. Peaks-Over-Threshold
+      can identify that a bound exists far more reliably than it can say where the
+      bound is, so the shape is reported and the point estimate is not.
+    </p>
+    <figure>
+      <div class="plate">
+        <img width="1275" height="750" src="../figures/evt_tail.png" loading="lazy"
+          alt="Extreme Value Theory tail fit over the fastest five percent of finishers, showing the fitted generalised Pareto curve bending toward a finite endpoint." />
+      </div>
+      <figcaption>The fitted tail. Negative shape, so it ends rather than continues.</figcaption>
+    </figure>
+  </section>
+
+  <section class="stop">
+    <p class="eyebrow">↓ your race</p>
+    <h2>Where any given time lands</h2>
+    <p>
+      The practical output is a lookup. A <strong>3:00</strong> marathon beats
+      about <strong>93%</strong> of this field. A <strong>4:00</strong> sits right
+      at the median. Every level's gap to the record is tabulated in
+      <code>you_vs_goat.csv</code>, because the second number is the one that
+      makes the first one mean something.
+    </p>
+    <figure>
+      <div class="plate">
+        <img width="1275" height="750" src="../figures/percentile.png" loading="lazy"
+          alt="Percentile curve mapping finish time to the share of the field beaten, rising steeply through the three to four hour range." />
+      </div>
+      <figcaption>Finish time against percentile of the field.</figcaption>
+    </figure>
+  </section>
+
+  <section class="stop stop--warn">
+    <p class="eyebrow">↓ the caveat that matters most</p>
+    <h2>Boston is a qualifying race</h2>
+    <p>
+      This is not the general public. Every runner in this distribution had to
+      post a qualifying time to be here, so the whole curve is shifted fast
+      relative to a typical big-city marathon. When the page says a 3:00 beats 93%
+      of the field, it means <strong>this</strong> field, and says so.
+    </p>
+    <p>
+      The direction of the bias is worth noting: a general-entry race would sit
+      slower, which would make the record look <em>more</em> extreme, not less.
+      The caveat cuts against the headline being overstated, not for it.
+    </p>
+    <p>
+      One number is also withheld on purpose. The record's rarity as a "1 in N"
+      figure would require trusting the fitted density far past where any data
+      supports it, so the record is described empirically instead: faster than
+      everyone, 2.4 SD out.
+    </p>
+  </section>
+
+  <section class="stop stop--end">
+    <p class="eyebrow">Finish · how it was built</p>
+    <h2>Where the numbers come from</h2>
+    <dl class="specs">
+      <div class="spec"><dt>Data</dt><dd>Boston 2014 finishers via the public <a href="https://github.com/llimllib/bostonmarathon">llimllib/bostonmarathon</a> mirror, cleaned to runners with plausible times</dd></div>
+      <div class="spec"><dt>Sample</dt><dd>31,842 finishers</dd></div>
+      <div class="spec"><dt>Body fit</dt><dd>Log-normal, fitted to the full field</dd></div>
+      <div class="spec"><dt>Tail</dt><dd>Peaks-Over-Threshold generalised Pareto on the fastest 5%</dd></div>
+      <div class="spec"><dt>Reported</dt><dd>Tail shape ξ, not an estimated fastest-possible time, which POT cannot pin down</dd></div>
+      <div class="spec"><dt>Built with</dt><dd>Python, pandas, scipy, matplotlib</dd></div>
+    </dl>
+  </section>
+
+</div>
+</div>
+
+<div class="wrap">
+  <section class="close">
+    <h2>Find your point on the curve, then look left</h2>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="../">Read the short version</a>
+      <a class="textlink" href="https://github.com/lyhjeremy/marathon-performance-continuum">or the code and data</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      The Performance Continuum ·
+      <a href="../">Story</a> ·
+      <a href="https://github.com/lyhjeremy/marathon-performance-continuum">Source</a> ·
+      MIT © 2026 Jeremy Lee
+    </p>
+  </footer>
+</div>
+</body>
+</html>
