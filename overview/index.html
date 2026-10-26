@@ -3,55 +3,57 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>The Performance Continuum, where your marathon sits, and how far the record is</title>
-<meta name="description" content="Fitting the full distribution of 31,842 Boston finishers, then placing the 2:00:35 world record on it. Extreme Value Theory says the fast tail has a finite edge." />
-<meta name="theme-color" content="#EDEDE7" />
+<title>The Performance Continuum: the marathon record against a whole Boston field</title>
+<meta name="description" content="A log-normal fit of 31,842 Boston 2014 finish times, with the 2:00:35 world record placed on it, and an Extreme Value Theory fit showing the fast tail has a finite edge." />
+<meta name="theme-color" content="#ECEBE6" />
 <meta property="og:title" content="The Performance Continuum" />
-<meta property="og:description" content="A whole marathon field as one distribution, with the world record marked on it. The median runner is 93% slower." />
+<meta property="og:description" content="31,842 Boston finishers as one distribution, with the 2:00:35 record marked on it. The median runner took 93% longer." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://lyhjeremy.github.io/marathon-performance-continuum/overview/" />
+<link href="" rel="stylesheet" />
 <style>
-@font-face{font-family:"Source Serif 4";src:url("../fonts/SourceSerif4-400.woff2")format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"Source Serif 4";src:url("../fonts/SourceSerif4-600.woff2")format("woff2");font-weight:600;font-display:swap}
-@font-face{font-family:"IBM Plex Sans";src:url("../fonts/IBMPlexSans-400.woff2")format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"IBM Plex Sans";src:url("../fonts/IBMPlexSans-600.woff2")format("woff2");font-weight:600;font-display:swap}
-@font-face{font-family:"IBM Plex Mono";src:url("../fonts/IBMPlexMono-400.woff2")format("woff2");font-weight:400;font-display:swap}
-
   :root {
-    --paper: #EDEDE7;
-    --card: #F5F5F0;
-    --plate: #F5F5F0;
-    --ink: #1C1E1B;
-    --ink2: #3d3d55;
-    --muted: #52564E;
-    --rule: #C6C7BF;
-    --accent: #8C3A1E;
-    --accent2: #7A5A1E;
-    --link: #2C5852;
-    --serif: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
-    --sans: 'Source Sans 3', -apple-system, system-ui, sans-serif;
-    --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
-    --shadow: 0 1px 2px rgba(26,26,46,.05), 0 10px 34px rgba(26,26,46,.07);
+    --paper: #ECEBE6;
+    --card: #F4F3EF;
+    --plate: #F4F3EF;
+    --ink: #1A1C1E;
+    --ink2: #4E535A;
+    --muted: #4E535A;
+    --rule: #C5C6C4;
+    --accent: #94462A;
+    --accent2: #1F4A72;
+    --link: #94462A;
+    --serif: "Source Serif 4", "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+    --sans: "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: "IBM Plex Mono", "SF Mono", Menlo, Consolas, monospace;
+    --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+    --edge: #73777C;
     --spine:  92px;
     --col:    min(100% - 2.6rem, 62rem);
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --paper: #14141f;
-      --card: #1c1c2a;
-      --plate: #f7f4ec;
-      --ink: #F2EFE6;
-      --ink2: #C9C4B6;
-      --muted: #918B7D;
-      --rule: #33313f;
-      --accent: #22D3EE;
-      --accent2: #E3BC5E;
-      --link: #E0899A;
-      --shadow: 0 1px 2px rgba(0,0,0,.32), 0 10px 34px rgba(0,0,0,.4);
+      --paper: #17191C;
+      --card: #202327;
+      --plate: #202327;
+      --ink: #E4E5E3;
+      --ink2: #A3A8AE;
+      --muted: #A3A8AE;
+      --rule: #383C41;
+      --accent: #D9906C;
+      --accent2: #7FA8D3;
+      --link: #D9906C;
+      --edge: #6B7076;
     }
   }
 
-  * { box-sizing: border-box; }
+  @font-face{font-family:"Source Serif 4";src:url("../fonts/SourceSerif4-400.woff2")format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Source Serif 4";src:url("../fonts/SourceSerif4-600.woff2")format("woff2");font-weight:600;font-display:swap}
+  @font-face{font-family:"IBM Plex Sans";src:url("../fonts/IBMPlexSans-400.woff2")format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"IBM Plex Sans";src:url("../fonts/IBMPlexSans-600.woff2")format("woff2");font-weight:600;font-display:swap}
+  @font-face{font-family:"IBM Plex Mono";src:url("../fonts/IBMPlexMono-400.woff2")format("woff2");font-weight:400;font-display:swap}
+
+  * { box-sizing: border-box; border-radius: 0; }
   html { scroll-behavior: smooth; }
   body {
     margin: 0; background: var(--paper); color: var(--ink);
@@ -210,53 +212,84 @@
     html { scroll-behavior: auto; }
     .btn { }
   }
+  @font-face{font-family:"Barlow Condensed";src:url("../fonts/BarlowCondensed-600.woff2")format("woff2");font-weight:600;font-style:normal;font-display:swap}
+  @font-face{font-family:"Barlow Condensed";src:url("../fonts/BarlowCondensed-700.woff2")format("woff2");font-weight:700;font-style:normal;font-display:swap}
 
+  .btn:hover { transform: none; background: var(--accent); border-color: var(--accent); color: var(--paper); }
+  .pull { border: 1px solid var(--edge); border-left: 1px solid var(--edge); background: transparent; }
+  .term { background: var(--card); color: var(--ink); border: 1px solid var(--rule); }
+  .term .c { color: var(--muted); } .term .g { color: var(--accent2); } .term .y { color: var(--accent); }
+  .logo, .hero h1, h2, .claim .n, .bignum { font-family: var(--display); }
+
+  /* Road: a race-day bib and the painted course line. Condensed caps, split-table numbers. */
+  body { border-top: 6px solid var(--accent2); }
+  .hero h1 { font-weight: 700; text-transform: uppercase; letter-spacing: -.01em; line-height: .95;
+             font-size: clamp(46px, 8.4vw, 104px); max-width: 15ch; }
+  h2 { font-weight: 600; letter-spacing: -.005em; font-size: clamp(30px, 4.2vw, 44px); line-height: 1.02; }
+  .kicker { font-family: var(--mono); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+  .claim .n { font-weight: 700; font-size: 56px; letter-spacing: 0; }
+  .bignum { font-weight: 700; letter-spacing: -.01em; }
+  .route::before { width: 0; border-left: 3px dashed var(--accent2); background: none; }
+  .stop::before { border-radius: 0; width: 18px; height: 18px; left: calc(var(--spine) / 2 - 7.5px);
+                  border: 3px solid var(--accent2); }
+  .stop .eyebrow { color: var(--accent2); }
+
+
+  /* Pace band: the lookup table printed as a runner's wristband. */
+  .paceband { margin-top: 28px; border: 2px solid var(--ink); background: var(--ink); color: var(--paper);
+              display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; }
+  @media (min-width: 820px) { .paceband { grid-template-columns: repeat(8, minmax(0, 1fr)); } }
+  .paceband div { background: var(--ink); padding: 12px 10px 13px; outline: 1px dashed color-mix(in srgb, var(--paper) 28%, transparent); outline-offset: -1px; }
+  .paceband b { display: block; font-family: var(--display); font-weight: 700; font-size: 34px; line-height: 1; letter-spacing: 0; }
+  .paceband span { display: block; font-family: var(--mono); font-size: 12px; line-height: 1.45; margin-top: 5px;
+                   color: color-mix(in srgb, var(--paper) 78%, var(--ink)); font-variant-numeric: tabular-nums; }
+  .paceband span em { font-style: normal; color: var(--paper); }
+  .bignum { line-height: 1; margin-bottom: 14px; }
+  .paceband-key { font-family: var(--sans); font-size: 14.5px; color: var(--muted); margin-top: 10px; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="masthead">
     <div class="logo"><span class="dot" aria-hidden="true"></span>The Performance Continuum</div>
-    <div class="tagline">31,842 finishers and one world record</div>
+    <div class="tagline">Boston 2014, 31,842 finishers, one world record</div>
   </header>
 
   <section class="hero">
-    <p class="kicker">Everyone knows a two-hour marathon is fast.</p>
-    <h1>Almost nobody knows how fast, in numbers you can feel.</h1>
+    <p class="kicker">Distribution fitting and Extreme Value Theory</p>
+    <h1>The marathon record is faster than every Boston finisher</h1>
 
     <p class="hero-sub">
-      This takes an entire marathon field, <strong>31,842 Boston finishers</strong>, fits the distribution they actually form, and then marks the world record on
-      it. The record is not near the fast end of this curve. It is
-      <strong>past everyone</strong>, including the man who won the race, and it
-      sits <strong>2.4 standard deviations</strong> below the field mean. The
-      median finisher is <strong>93% slower</strong>.
+      I fitted the finish times of the whole 2014 Boston Marathon field, all
+      31,842 runners, and marked Kelvin Kiptum's 2:00:35 on the same axis. The
+      race winner ran 2:09. The record sits 2.4 standard deviations below the
+      field mean, and the median finisher took 93% longer than it.
     </p>
 
     <div class="cta-row">
-      <a class="btn btn-primary" href="../">Read the short version</a>
-      <a class="textlink" href="https://github.com/lyhjeremy/marathon-performance-continuum">or the code and data</a>
+      <a class="btn btn-primary" href="../">See the continuum strip</a>
+      <a class="textlink" href="https://github.com/lyhjeremy/marathon-performance-continuum">Code and data</a>
     </div>
 
     <div class="claims">
       <div class="claim">
         <div class="n">3:52</div>
-        <p>the median of a real marathon field. The distribution is log-normal,
-           mean 4:03, tailing out toward seven hours.</p>
+        <p>Median finish time. The field is log-normal, with a mean of 4:03 and a
+           slow tail running out to the 7:00 cut-off.</p>
       </div>
       <div class="claim">
-        <div class="n">2:00:35</div>
-        <p>the world record, faster than all 31,842 finishers. The race winner
-           included, at 2:09.</p>
+        <div class="n">0 of 31,842</div>
+        <p>Finishers faster than 2:00:35. The closest was the winner, at 2:09.</p>
       </div>
       <div class="claim">
-        <div class="n">ξ ≈ −0.15</div>
-        <p>the EVT shape parameter on the fastest 5%. Below zero, so the tail has
-           a finite edge rather than running on forever.</p>
+        <div class="n">ξ = −0.15</div>
+        <p>Generalized Pareto shape on the fastest 5%. Below zero, so the fast
+           tail has a finite end.</p>
       </div>
       <div class="claim">
-        <div class="n">~93%</div>
-        <p>of the field is beaten by a 3:00 marathon. 4:00 lands almost exactly on
-           the median.</p>
+        <div class="n">92.6%</div>
+        <p>Share of the field a 3:00 marathon finishes ahead of. A 4:00 is ahead
+           of 43.2%.</p>
       </div>
     </div>
   </section>
@@ -267,107 +300,126 @@
 
   <section class="stop">
     <p class="eyebrow">Start · the question</p>
-    <h2>Two questions that are really one</h2>
+    <h2>Two questions on one axis</h2>
     <p>
-      "Where does my time sit?" and "how superhuman is the record?" are usually
-      asked separately, and both get answered with adjectives. Put on the same
-      axis they answer each other: your time is a point on a curve, and the record
-      is another point on the same curve, a very long way along it.
+      Runners ask where their time sits. Fans ask how fast the record really is.
+      Both usually get answered with adjectives. On a single time axis they
+      become the same question: your time is one point on the curve, and the
+      record is another point a long way to the left.
     </p>
     <p>
-      Boston 2014 supplies the curve. It is the largest clean, public marathon
-      field available, with a real distribution rather than a summary.
+      The curve comes from the 2014 Boston Marathon, pulled from the public
+      <a href="https://github.com/llimllib/bostonmarathon">llimllib/bostonmarathon</a>
+      mirror. I kept runners only (no wheelchair or handcycle entries) with
+      times between 2 and 7 hours, which leaves 31,842 finishers.
     </p>
   </section>
 
   <section class="stop stop--key">
-    <p class="eyebrow">↓ the curve</p>
+    <p class="eyebrow">Body · log-normal fit</p>
     <h2>A marathon field is log-normal</h2>
     <p>
-      Fitted, the field is a textbook log-normal: a median of <strong>3:52</strong>,
-      a mean pulled later to <strong>4:03</strong> by the slow side, and a long
-      right tail out past seven hours. That asymmetry is not noise, it is what a
-      field looks like. You can be very much slower than the middle, but only so
-      much faster.
+      A shifted log-normal, with its floor set at 118 minutes, tracks the
+      histogram closely. The median is <strong>3:52</strong>. The slow tail
+      pulls the mean to <strong>4:03</strong>, with a standard deviation of 51
+      minutes. A runner can finish hours behind the middle of the field but
+      the winner was only 1:43 ahead of it.
     </p>
     <p>
-      Mark the world record on the same axis and it does not sit at the sharp end
-      of the curve. It sits off it.
+      The record does not sit at the fast end of this curve. It sits to the
+      left of it: no finisher ran faster than 2:00:35, and the winner was
+      more than eight minutes slower.
     </p>
     <figure>
       <div class="plate">
         <img width="1425" height="750" src="../figures/continuum.png" fetchpriority="high"
-          alt="Distribution of Boston Marathon finish times with a fitted log-normal curve, and a marker for the 2 hour 35 second world record placed far to the left of the entire field." />
+          alt="Histogram of 31,842 Boston 2014 finish times with a log-normal fit peaking near 3:35. The 2:00:35 world record line sits left of the whole field, including the winner's 2:09." />
       </div>
-      <figcaption>The whole field as one distribution, with the record marked well outside it.</figcaption>
+      <figcaption>Finish times with the log-normal fit, the winner (2:09), the median (3:52) and the record.</figcaption>
     </figure>
   </section>
 
   <section class="stop">
-    <p class="eyebrow">↓ the elite edge</p>
-    <h2>The fast tail has a wall at the end of it</h2>
+    <p class="eyebrow">Tail · Peaks-Over-Threshold</p>
+    <h2>The fast tail has a finite end</h2>
 
-    <div class="bignum">ξ ≈ −0.15</div>
-    <p class="bignum-note">Peaks-Over-Threshold GPD shape parameter, fitted on the fastest 5%.</p>
+    <div class="bignum">ξ = −0.15</div>
+    <p class="bignum-note">Generalized Pareto shape, fitted to the 1,593 finishers under 2:56.</p>
 
     <p>
-      A negative shape parameter is the interesting result. It means the tail is
-      <strong>bounded</strong>: performance does not extend indefinitely into the
-      fast direction but runs into a finite edge. That is consistent with a hard
-      human ceiling, which is what most people assume but rarely test.
+      The body fit says little about the extreme fast end, so the tail gets a
+      model of its own. I set the threshold at the fastest 5% of the field
+      (2:56), measured how far each of those 1,593 runners beat it, and fitted
+      a generalized Pareto distribution to those gaps. The shape parameter is
+      −0.147.
     </p>
     <p>
-      What it deliberately does <em>not</em> do is name the ceiling. Peaks-Over-Threshold
-      can identify that a bound exists far more reliably than it can say where the
-      bound is, so the shape is reported and the point estimate is not.
+      A negative shape means the distribution is <strong>bounded</strong>: fast
+      performances stop at some point instead of thinning out forever. Peaks-Over-Threshold
+      is good at telling whether such a bound exists and poor at saying where it
+      is, so I report the shape and not an estimated fastest possible time.
     </p>
     <figure>
       <div class="plate">
         <img width="1275" height="750" src="../figures/evt_tail.png" loading="lazy"
-          alt="Extreme Value Theory tail fit over the fastest five percent of finishers, showing the fitted generalised Pareto curve bending toward a finite endpoint." />
+          alt="Histogram of minutes under the 2:56 threshold for the fastest 5 percent of finishers, with a generalized Pareto curve of shape -0.15 falling toward zero." />
       </div>
-      <figcaption>The fitted tail. Negative shape, so it ends rather than continues.</figcaption>
+      <figcaption>Exceedances below the 2:56 threshold and the fitted generalized Pareto curve.</figcaption>
     </figure>
   </section>
 
   <section class="stop">
-    <p class="eyebrow">↓ your race</p>
-    <h2>Where any given time lands</h2>
+    <p class="eyebrow">Lookup · your race</p>
+    <h2>A pace band for the whole field</h2>
     <p>
-      The practical output is a lookup. A <strong>3:00</strong> marathon beats
-      about <strong>93%</strong> of this field. A <strong>4:00</strong> sits right
-      at the median. Every level's gap to the record is tabulated in
-      <code>you_vs_goat.csv</code>, because the second number is the one that
-      makes the first one mean something.
+      The last output is a lookup from finish time to place in the field.
+      Each cell below gives the share of the 31,842 finishers that time beats,
+      and how much slower it is than the record. The numbers are
+      <code>tables/you_vs_goat.csv</code>.
     </p>
+    <div class="paceband" role="list" aria-label="Finish time, share of the Boston 2014 field finished ahead of, and percent slower than the 2:00:35 record">
+      <div role="listitem"><b>2:30</b><span><em>99.7%</em> behind</span><span>+24.4%</span></div>
+      <div role="listitem"><b>2:45</b><span><em>98.1%</em> behind</span><span>+36.8%</span></div>
+      <div role="listitem"><b>3:00</b><span><em>92.6%</em> behind</span><span>+49.3%</span></div>
+      <div role="listitem"><b>3:30</b><span><em>70.6%</em> behind</span><span>+74.2%</span></div>
+      <div role="listitem"><b>4:00</b><span><em>43.2%</em> behind</span><span>+99.0%</span></div>
+      <div role="listitem"><b>4:30</b><span><em>26.3%</em> behind</span><span>+123.9%</span></div>
+      <div role="listitem"><b>5:00</b><span><em>14.4%</em> behind</span><span>+148.8%</span></div>
+      <div role="listitem"><b>6:00</b><span><em>2.8%</em> behind</span><span>+198.5%</span></div>
+    </div>
+    <p class="paceband-key">Each cell: finish time, the share of the field finishing behind it, and how much longer it takes than the 2:00:35 record. A 4:00 marathon takes almost exactly twice as long.</p>
     <figure>
       <div class="plate">
         <img width="1275" height="750" src="../figures/percentile.png" loading="lazy"
-          alt="Percentile curve mapping finish time to the share of the field beaten, rising steeply through the three to four hour range." />
+          alt="Curve of finish time against the percent of the Boston field finished ahead of, steepest between 3:00 and 4:00, with points marked at 2:30, 3:00, 3:30, 4:00 and 5:00." />
       </div>
-      <figcaption>Finish time against percentile of the field.</figcaption>
+      <figcaption>Finish time against the share of the field it beats.</figcaption>
     </figure>
   </section>
 
   <section class="stop stop--warn">
-    <p class="eyebrow">↓ the caveat that matters most</p>
-    <h2>Boston is a qualifying race</h2>
+    <p class="eyebrow">Limits · one field, one year</p>
+    <h2>What this doesn't show</h2>
     <p>
-      This is not the general public. Every runner in this distribution had to
-      post a qualifying time to be here, so the whole curve is shifted fast
-      relative to a typical big-city marathon. When the page says a 3:00 beats 93%
-      of the field, it means <strong>this</strong> field, and says so.
+      Boston is a qualifying race. Almost everyone in this field had to run a
+      qualifying time to enter, so the curve sits faster than a general-entry
+      marathon would. When the band says a 3:00 is ahead of 92.6%, it means
+      ahead of this field. A slower field would push the record further out.
     </p>
     <p>
-      The direction of the bias is worth noting: a general-entry race would sit
-      slower, which would make the record look <em>more</em> extreme, not less.
-      The caveat cuts against the headline being overstated, not for it.
+      It is one race in one year. The field is Boston 2014 only; 2013 is left
+      out because that race was stopped partway through.
     </p>
     <p>
-      One number is also withheld on purpose. The record's rarity as a "1 in N"
-      figure would require trusting the fitted density far past where any data
-      supports it, so the record is described empirically instead: faster than
-      everyone, 2.4 SD out.
+      I don't give the record's rarity as "1 in N". That needs the fitted
+      density far past the last data point, so the record is described by what
+      was observed: faster than all 31,842 finishers and 2.4 standard
+      deviations below the mean.
+    </p>
+    <p>
+      The record used is Kelvin Kiptum's 2:00:35 (Chicago, 2023), the value set
+      in <code>analyze.py</code>. A faster record would move that one mark and
+      none of the field statistics.
     </p>
   </section>
 
@@ -375,12 +427,12 @@
     <p class="eyebrow">Finish · how it was built</p>
     <h2>Where the numbers come from</h2>
     <dl class="specs">
-      <div class="spec"><dt>Data</dt><dd>Boston 2014 finishers via the public <a href="https://github.com/llimllib/bostonmarathon">llimllib/bostonmarathon</a> mirror, cleaned to runners with plausible times</dd></div>
+      <div class="spec"><dt>Data</dt><dd>Boston 2014 official results from the <a href="https://github.com/llimllib/bostonmarathon">llimllib/bostonmarathon</a> mirror, runners only, 2:00 to 7:00</dd></div>
       <div class="spec"><dt>Sample</dt><dd>31,842 finishers</dd></div>
-      <div class="spec"><dt>Body fit</dt><dd>Log-normal, fitted to the full field</dd></div>
-      <div class="spec"><dt>Tail</dt><dd>Peaks-Over-Threshold generalised Pareto on the fastest 5%</dd></div>
-      <div class="spec"><dt>Reported</dt><dd>Tail shape ξ, not an estimated fastest-possible time, which POT cannot pin down</dd></div>
-      <div class="spec"><dt>Built with</dt><dd>Python, pandas, scipy, matplotlib</dd></div>
+      <div class="spec"><dt>Body fit</dt><dd>Shifted log-normal (floor 118 min), <code>scipy.stats.lognorm</code></dd></div>
+      <div class="spec"><dt>Tail fit</dt><dd>Peaks-Over-Threshold, generalized Pareto on the fastest 5% (<code>scipy.stats.genpareto</code>)</dd></div>
+      <div class="spec"><dt>Reported</dt><dd>Tail shape ξ only; no endpoint estimate</dd></div>
+      <div class="spec"><dt>Built with</dt><dd>Python, pandas, NumPy, SciPy, matplotlib</dd></div>
     </dl>
   </section>
 
@@ -389,18 +441,18 @@
 
 <div class="wrap">
   <section class="close">
-    <h2>Find your point on the curve, then look left</h2>
+    <h2>Find your time on the band, then look left</h2>
     <div class="cta-row">
-      <a class="btn btn-primary" href="../">Read the short version</a>
-      <a class="textlink" href="https://github.com/lyhjeremy/marathon-performance-continuum">or the code and data</a>
+      <a class="btn btn-primary" href="../">Back to the continuum strip</a>
+      <a class="textlink" href="https://github.com/lyhjeremy/marathon-performance-continuum">Code and data</a>
     </div>
   </section>
 
   <footer>
     <p>
       The Performance Continuum ·
-      <a href="../">Story</a> ·
-      <a href="https://github.com/lyhjeremy/marathon-performance-continuum">Source</a> ·
+      <a href="../">Landing page</a> ·
+      <a href="https://github.com/lyhjeremy/marathon-performance-continuum">Source on GitHub</a> ·
       MIT © 2026 Jeremy Lee
     </p>
   </footer>

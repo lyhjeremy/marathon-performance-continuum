@@ -1,63 +1,57 @@
 # The Marathon Performance Continuum
 
+Fits the full finish-time distribution of the 2014 Boston Marathon (31,842 runners) and places the 2:00:35 world record on it, with an Extreme Value Theory model of the fast tail.
+
+[Live site](https://lyhjeremy.github.io/marathon-performance-continuum/) · [Write-up](https://lyhjeremy.github.io/marathon-performance-continuum/overview/)
+
 Design and copy follow [these standards](https://github.com/lyhjeremy/lyhjeremy/blob/main/DESIGN_STANDARDS.md).
 
-**Where does any marathon time fall among real runners, and just how superhuman is the world record?**
+## Results
 
-> **Overview:** https://lyhjeremy.github.io/marathon-performance-continuum/
-> **In depth:** https://lyhjeremy.github.io/marathon-performance-continuum/overview/
-
-Fans know a 2-hour marathon is "fast" and a world record is "hard," but rarely in
-numbers you can feel. This project models the full distribution of a real marathon
-field, **31,842 Boston 2014 finishers**, then places the world record on it and
-quantifies the gap, using a fitted body distribution and **Extreme Value Theory**
-on the fast tail.
+| Measure | Value |
+|---|---|
+| Finishers faster than the 2:00:35 record | 0 of 31,842 (winner: 2:09) |
+| Record's distance from the field mean | 2.4 standard deviations below (mean 4:03, SD 51 min) |
+| Median finish, and its gap to the record | 3:52, 93% slower |
+| Generalized Pareto shape on the fastest 5% | ξ = −0.147 (bounded tail) |
 
 <p align="center">
-  <img src="figures/continuum.png" alt="Distribution of Boston finish times with the world record marked" width="820">
+  <img src="figures/continuum.png" alt="Histogram of 31,842 Boston 2014 finish times with a log-normal fit; the 2:00:35 world record line sits left of the whole field, including the winner's 2:09." width="820">
 </p>
 
-## What it finds
+## Method
 
-- **The field is log-normal**, centred on a **3:52 median** (mean 4:03), tailing out
-  to 7 hours. The familiar right-skewed shape of a marathon field.
-- **The world record (2:00:35) is off the chart.** It is faster than **all 31,842
-  finishers, including the winner (2:09)**, and sits **2.4 standard deviations
-  below the field mean**. The median finisher is **93% slower** than the WR.
-- **The elite edge is *bounded*, not heavy.** A Peaks-Over-Threshold GPD fit on the
-  fastest 5% gives a shape parameter **ξ ≈ −0.15 (< 0).** The tail has a finite
-  edge rather than running off indefinitely, consistent with a hard human ceiling.
-- **A "you-vs-the-field" lookup**: a 3:00 marathon beats ~93% of this field; 4:00 is
-  right at the median; and every level's gap to the WR is tabulated.
+1. Body of the field: a shifted log-normal (floor 118 minutes) fitted with `scipy.stats.lognorm`. The field is right-skewed, peaking around 3:30 to 3:50.
+2. The record against the field: counted empirically (how many finishers beat it) and as a z-score. The record's rarity as "1 in N" is not quoted, because that would rely on the fitted density far beyond the data.
+3. Fast tail: Peaks-Over-Threshold Extreme Value Theory. The threshold is the fastest 5% of finishers (2:56, 1,593 runners), and a generalized Pareto distribution is fitted to how far each one beat it. A negative shape parameter means the tail has a finite end. No endpoint ("fastest possible time") is reported, since POT endpoint estimates are unstable.
+4. Lookup: for reference times from 2:05 to 6:00, the share of the field finishing behind and the percent gap to the record (`tables/you_vs_goat.csv`). A 3:00 finishes ahead of 92.6% of this field; a 4:00 is ahead of 43.2%.
 
-## An honest caveat about the data
-Boston is a **qualifying** race, so this is the distribution of already-committed,
-already-fast marathoners, not the general public. It is the cleanest large, public
-marathon field available, and every claim here is about *this* field (stated as
-such). A general-population race would shift the whole curve slower and make the
-world record look even more extreme.
+Stack: Python, pandas, NumPy, SciPy, matplotlib.
 
-## Run it
+## How to run
+
 ```bash
 pip install -r requirements.txt
-python fetch_data.py      # Boston 2014 finishers -> data/raw/ (git-ignored)
-python analyze.py         # distribution + EVT + lookup -> figures/ + tables/
+python fetch_data.py      # Boston 2014 finishers -> data/raw/ (gitignored)
+python analyze.py         # fits, lookup table and figures -> figures/ and tables/
 ```
 
-## Files
+## Repo layout
+
 | Path | What it is |
 |---|---|
-| `fetch_data.py` | Download & clean the Boston field (runners only, plausible times) |
-| `analyze.py` | Log-normal fit, world-record positioning, EVT tail, percentile lookup |
-| `figures/` | The continuum, the EVT tail fit, the you-vs-field percentile curve |
+| `fetch_data.py` | Downloads Boston 2014 results and keeps runners only (no wheelchair or handcycle), 2 to 7 hours |
+| `analyze.py` | Log-normal fit, record placement, generalized Pareto tail fit, percentile lookup, figures |
+| `figures/` | Field distribution with the record, tail fit, percentile curve |
 | `tables/` | `summary.csv`, `you_vs_goat.csv` |
+| `index.html`, `overview/` | The GitHub Pages site |
 
-## Method notes
-The world record's exact rarity ("1 in N") is deliberately **not** quoted. That far
-into the tail the fitted density is not trustworthy, so the record is described
-empirically (faster than everyone; 2.4 SD out) instead. Likewise EVT reports the
-robust tail *shape* ξ, not a point estimate of the fastest-possible time, which
-Peaks-Over-Threshold cannot pin down reliably.
+## Limitations
+
+- Boston is a qualifying race, so this field is faster than a general-entry marathon. Every percentile describes this field only. A slower field would put the record further out.
+- One race, one year (2014). The 2013 race was stopped partway and is left out.
+- The record is set in `analyze.py` as Kelvin Kiptum's 2:00:35 (Chicago, 2023). A faster record changes that one mark and none of the field statistics.
 
 ## License
-[MIT](LICENSE) © 2026 Jeremy Lee · finisher data from `llimllib/bostonmarathon`
+
+[MIT](LICENSE) © 2026 Jeremy Lee. Finisher data from [llimllib/bostonmarathon](https://github.com/llimllib/bostonmarathon).

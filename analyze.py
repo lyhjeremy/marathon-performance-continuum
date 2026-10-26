@@ -1,8 +1,8 @@
-"""The marathon performance continuum — from the back of the field to the GOAT.
+"""The marathon performance continuum, from the back of the field to the GOAT.
 
 We model the distribution of a full marathon field and ask where any performance
 falls on it, then quantify just how far the world record sits beyond the human
-crowd — using both the fitted body distribution and Extreme Value Theory on the
+crowd, using both the fitted body distribution and Extreme Value Theory on the
 fast tail.
 
 1. Fit a (shifted) log-normal to the finish-time distribution.
@@ -57,13 +57,13 @@ def main() -> None:
     z = (WR_MIN - t.mean()) / t.std()
     med_slower = 100 * (np.median(t) - WR_MIN) / WR_MIN
     print(f"\nWorld record {WR_LABEL}:")
-    print(f"  faster than ALL {n:,} finishers — including the winner ({faster} were faster)")
+    print(f"  faster than ALL {n:,} finishers, including the winner ({faster} were faster)")
     print(f"  {abs(z):.1f} standard deviations below the field mean")
     print(f"  the median finisher ({hhmm(np.median(t))}) is {med_slower:.0f}% slower than the WR")
 
-    # 3. EVT — Peaks-Over-Threshold on the fast tail. The GPD *shape* ξ is the robust
+    # 3. EVT: Peaks-Over-Threshold on the fast tail. The GPD *shape* ξ is the robust
     #    output (is the edge bounded or heavy?); the point endpoint is deliberately
-    #    NOT reported — POT endpoint estimates are notoriously unstable.
+    #    NOT reported; POT endpoint estimates are notoriously unstable.
     u = np.percentile(t, 5)                       # fastest 5% threshold
     exceed = u - t[t < u]                          # how far under the threshold (positive)
     c, gloc, gscale = stats.genpareto.fit(exceed, floc=0)
@@ -85,7 +85,7 @@ def main() -> None:
 
 
 def _figures(t, df, ln, u, exceed, c, gscale):
-    # Fig 1: the continuum — where everyone (and the GOAT) falls
+    # Fig 1: the continuum, where everyone (and the GOAT) falls
     fig, ax = plt.subplots(figsize=(9.5, 5))
     ax.hist(t, bins=90, color="#d9d2c4", edgecolor="white", linewidth=0.3, density=True)
     xs = np.linspace(t.min(), t.max(), 400)
@@ -98,8 +98,9 @@ def _figures(t, df, ln, u, exceed, c, gscale):
             color="#a67c00", ha="right", fontweight="bold")
     ax.set_xlabel("finish time (h:mm)")
     ax.set_ylabel("density of finishers")
+    ax.set_xlim(96, 432)
     ax.set_xticks(range(120, 421, 30)); ax.set_xticklabels([hhmm(m) for m in range(120, 421, 30)])
-    ax.set_title("The marathon continuum: 32,000 Boston finishers — and the GOAT far to the left",
+    ax.set_title("The marathon continuum: 32,000 Boston finishers, and the world record far to the left",
                  fontweight="bold", fontsize=12)
     ax.legend(frameon=False)
     ax.spines[["top", "right"]].set_visible(False)
@@ -114,7 +115,7 @@ def _figures(t, df, ln, u, exceed, c, gscale):
             label=f"Generalized Pareto (ξ={c:+.2f})")
     ax.set_xlabel(f"minutes faster than the {hhmm(u)} threshold (fast 5% of field)")
     ax.set_ylabel("density")
-    edge = "bounded — a finite fast edge" if c < 0 else "heavy/unbounded"
+    edge = "bounded, a finite fast edge" if c < 0 else "heavy/unbounded"
     ax.set_title(f"Extreme Value Theory on the elite tail: {edge} (ξ = {c:+.2f})", fontweight="bold")
     ax.legend(frameon=False)
     ax.spines[["top", "right"]].set_visible(False)

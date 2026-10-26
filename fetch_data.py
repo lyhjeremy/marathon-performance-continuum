@@ -1,11 +1,11 @@
 """Download Boston Marathon finisher data (the mass-participation field).
 
-Source: llimllib/bostonmarathon on GitHub — official finish times for the full
+Source: llimllib/bostonmarathon on GitHub: official finish times for the full
 field. We use it as the "continuum" of committed marathoners: from the back of the
 pack to the elite line, against which the world record is a distant outlier.
 
 Boston is a *qualifying* race, so this is the distribution of already-fast,
-committed runners — not the general public. We say so plainly in the write-up; it
+committed runners, not the general public. We say so plainly in the write-up; it
 is still the cleanest large, public marathon field available.
 
 Output: data/raw/boston_finishers.csv  (year, gender, age, minutes)
