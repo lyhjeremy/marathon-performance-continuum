@@ -2,17 +2,17 @@
 
 *One distribution from the back of the field to the world record.*
 
-Every one of the 31,842 finishers of the 2014 Boston Marathon was slower than the world record. The fastest was the winner, in 2:09, and Kelvin Kiptum's 2:00:35 sits to the left of the entire field. I wanted to see that gap on one time axis, with a club runner's finish and the record as two points on the same curve. (My own best, 2:48, finishes ahead of 97.5% of this field, counted from the same finisher file.) Boston 2014 gave me a full field to draw the curve from.
+Every one of the 31,842 finishers of the 2014 Boston Marathon was slower than the world record. The fastest was the winner, in 2:09, and Sabastian Sawe's 1:59:30 sits to the left of the entire field. I wanted to see that gap on one time axis, with a club runner's finish and the record as two points on the same curve. (My own best, 2:48, finishes ahead of 97.5% of this field, counted from the same finisher file.) Boston 2014 gave me a full field to draw the curve from.
 
 ## The shape of a field
 
 <p align="center">
-  <img src="figures/continuum.png" alt="Histogram of 31,842 Boston 2014 finish times with a log-normal fit; the 2:00:35 world record line sits left of the whole field, including the winner's 2:09." width="760">
+  <img src="figures/continuum.png" alt="Histogram of 31,842 Boston 2014 finish times with a log-normal fit; the 1:59:30 world record line sits left of the whole field, including the winner's 2:09." width="760">
 </p>
 
 A marathon field is close to log-normal: it climbs to a peak around 3:30 to 3:50, then trails off slowly past six hours. The median Boston finisher ran 3:52, and the slow tail pulls the mean to 4:03 (standard deviation 51 minutes). A shifted log-normal with a floor at 118 minutes tracks the histogram closely.
 
-The record is off the left edge of that curve. None of the 31,842 finishers ran faster, and against this field it is 2.4 standard deviations below the mean; the median runner took 93% longer.
+The record is off the left edge of that curve. None of the 31,842 finishers ran faster, and against this field it is 2.4 standard deviations below the mean; the median runner took 94% longer.
 
 ## Where the fast edge ends
 
@@ -32,16 +32,16 @@ The fitted shape parameter is ξ = −0.147. A negative shape means the tail is 
 
 The lookup turns a finish time into a place in the field (`tables/you_vs_goat.csv`):
 
-| Finish time | Ahead of this share of the field | Slower than 2:00:35 by |
+| Finish time | Ahead of this share of the field | Slower than 1:59:30 by |
 |---|---|---|
-| 2:30 | 99.7% | 24.4% |
-| 3:00 | 92.6% | 49.3% |
-| 3:30 | 70.6% | 74.2% |
-| 4:00 | 43.2% | 99.0% |
-| 5:00 | 14.4% | 148.8% |
-| 6:00 | 2.8% | 198.5% |
+| 2:30 | 99.7% | 25.5% |
+| 3:00 | 92.6% | 50.6% |
+| 3:30 | 70.6% | 75.7% |
+| 4:00 | 43.2% | 100.8% |
+| 5:00 | 14.4% | 151.0% |
+| 6:00 | 2.8% | 201.3% |
 
-A 3:00 marathon is a serious amateur result, and it beats 92.6% of an already fast field while still being 49% slower than the record. A 4:00 takes almost exactly twice as long as the record.
+A 3:00 marathon is a serious amateur result, and it beats 92.6% of an already fast field while still being 51% slower than the record. A 4:00 takes just over twice as long as the record.
 
 ## What the numbers don't cover
 
@@ -49,6 +49,6 @@ Boston is a qualifying race, and its field is made of runners who were fast enou
 
 I don't give the record's rarity as "1 in N", because that would mean trusting the fitted density well beyond the data. The record is described by what was observed: faster than every finisher, 2.4 standard deviations from the mean.
 
-The record is set in `analyze.py` as Kiptum's 2:00:35 (Chicago, 2023). A faster record would move that one mark and none of the field statistics.
+The record is set in `analyze.py` as Sabastian Sawe's 1:59:30 (London, 26 April 2026), [ratified by World Athletics](https://worldathletics.org/news/press-releases/ratified-world-records-sawe-ehammer-charlton-mcrae-yan-duplantis-assefa) on 23 July 2026. It replaced Kelvin Kiptum's 2:00:35; the change moved the record mark and the percent-slower column and none of the field statistics.
 
 *Code: [github.com/lyhjeremy/marathon-performance-continuum](https://github.com/lyhjeremy/marathon-performance-continuum)*

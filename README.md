@@ -1,6 +1,6 @@
 # The Marathon Performance Continuum
 
-Where does a 3:00 or a 4:00 marathon sit relative to the world record? This repo fits the finish-time distribution of all 31,842 runners in the 2014 Boston Marathon, marks Kelvin Kiptum's 2:00:35 on the same axis, and models the fast tail with Extreme Value Theory.
+Where does a 3:00 or a 4:00 marathon sit relative to the world record? This repo fits the finish-time distribution of all 31,842 runners in the 2014 Boston Marathon, marks Sabastian Sawe's 1:59:30 world record on the same axis, and models the fast tail with Extreme Value Theory.
 
 [Live site](https://lyhjeremy.github.io/marathon-performance-continuum/) · [Write-up](https://lyhjeremy.github.io/marathon-performance-continuum/overview/)
 
@@ -10,13 +10,13 @@ Design and copy follow [these standards](https://github.com/lyhjeremy/lyhjeremy/
 
 | Measure | Value |
 |---|---|
-| Finishers faster than the 2:00:35 record | 0 of 31,842 (winner: 2:09) |
+| Finishers faster than the 1:59:30 record | 0 of 31,842 (winner: 2:09) |
 | Record's distance from the field mean | 2.4 standard deviations below (mean 4:03, SD 51 min) |
-| Median finish, and its gap to the record | 3:52, 93% slower |
+| Median finish, and its gap to the record | 3:52, 94% slower |
 | Generalized Pareto shape on the fastest 5% | ξ = −0.147 (bounded tail) |
 
 <p align="center">
-  <img src="figures/continuum.png" alt="Histogram of 31,842 Boston 2014 finish times with a log-normal fit; the 2:00:35 world record line sits left of the whole field, including the winner's 2:09." width="820">
+  <img src="figures/continuum.png" alt="Histogram of 31,842 Boston 2014 finish times with a log-normal fit; the 1:59:30 world record line sits left of the whole field, including the winner's 2:09." width="820">
 </p>
 
 ## Method
@@ -51,7 +51,7 @@ python export_web.py      # one-minute histograms for the site's chart and looku
 
 ## Limitations
 
-Boston is a qualifying race, so this field is faster than a general-entry marathon and every percentile describes this field only; a slower field would put the record further out. The data is one race in one year (2014), since the 2013 race was stopped partway and is left out. The record is set in `analyze.py` as Kelvin Kiptum's 2:00:35 (Chicago, 2023), and a faster record would change that one mark and none of the field statistics.
+Boston is a qualifying race, so this field is faster than a general-entry marathon and every percentile describes this field only; a slower field would put the record further out. The data is one race in one year (2014), since the 2013 race was stopped partway and is left out. The record is set in `analyze.py` as Sabastian Sawe's 1:59:30 (London, 26 April 2026), [ratified by World Athletics](https://worldathletics.org/news/press-releases/ratified-world-records-sawe-ehammer-charlton-mcrae-yan-duplantis-assefa) on 23 July 2026. It replaced Kelvin Kiptum's 2:00:35; the change moved the record mark and the percent-slower figures and none of the field statistics.
 
 ## License
 

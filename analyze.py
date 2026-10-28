@@ -6,7 +6,7 @@ crowd, using both the fitted body distribution and Extreme Value Theory on the
 fast tail.
 
 1. Fit a (shifted) log-normal to the finish-time distribution.
-2. Locate the world record (2:00:35) on that distribution: percentile, z-score,
+2. Locate the world record (1:59:30) on that distribution: percentile, z-score,
    and a "1-in-N of this field" rarity.
 3. Peaks-Over-Threshold EVT (Generalized Pareto) on the fast tail to characterise
    how the elite edge behaves and estimate its endpoint.
@@ -28,8 +28,8 @@ from scipy import stats
 
 ROOT = Path(__file__).resolve().parent
 FIG, TAB = ROOT / "figures", ROOT / "tables"
-WR_MIN = 120.5833          # men's marathon WR 2:00:35 (Kelvin Kiptum, 2023)
-WR_LABEL = "2:00:35"
+WR_MIN = 119.5             # men's marathon WR 1:59:30 (Sabastian Sawe, London 2026, ratified 23 July 2026)
+WR_LABEL = "1:59:30"
 INK, GOLD, WINE, SKY = "#1a1a2e", "#D4A537", "#7a1f2b", "#4a7ba6"
 
 
