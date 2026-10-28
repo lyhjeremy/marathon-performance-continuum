@@ -1,6 +1,6 @@
 # The Marathon Performance Continuum
 
-Fits the full finish-time distribution of the 2014 Boston Marathon (31,842 runners) and places the 2:00:35 world record on it, with an Extreme Value Theory model of the fast tail.
+Where does a 3:00 or a 4:00 marathon sit relative to the world record? This repo fits the finish-time distribution of all 31,842 runners in the 2014 Boston Marathon, marks Kelvin Kiptum's 2:00:35 on the same axis, and models the fast tail with Extreme Value Theory.
 
 [Live site](https://lyhjeremy.github.io/marathon-performance-continuum/) · [Write-up](https://lyhjeremy.github.io/marathon-performance-continuum/overview/)
 
@@ -21,10 +21,11 @@ Design and copy follow [these standards](https://github.com/lyhjeremy/lyhjeremy/
 
 ## Method
 
-1. Body of the field: a shifted log-normal (floor 118 minutes) fitted with `scipy.stats.lognorm`. The field is right-skewed, peaking around 3:30 to 3:50.
-2. The record against the field: counted empirically (how many finishers beat it) and as a z-score. The record's rarity as "1 in N" is not quoted, because that would rely on the fitted density far beyond the data.
-3. Fast tail: Peaks-Over-Threshold Extreme Value Theory. The threshold is the fastest 5% of finishers (2:56, 1,593 runners), and a generalized Pareto distribution is fitted to how far each one beat it. A negative shape parameter means the tail has a finite end. No endpoint ("fastest possible time") is reported, since POT endpoint estimates are unstable.
-4. Lookup: for reference times from 2:05 to 6:00, the share of the field finishing behind and the percent gap to the record (`tables/you_vs_goat.csv`). A 3:00 finishes ahead of 92.6% of this field; a 4:00 is ahead of 43.2%.
+The body of the field is a shifted log-normal (floor 118 minutes) fitted with `scipy.stats.lognorm`; the field is right-skewed and peaks around 3:30 to 3:50. The record is placed against it two ways, by counting how many finishers beat it and as a z-score. Its rarity as "1 in N" is not quoted, because that would rely on the fitted density far beyond the data.
+
+The fast tail uses Peaks-Over-Threshold Extreme Value Theory. The threshold is the fastest 5% of finishers (2:56, 1,593 runners), and a generalized Pareto distribution is fitted to how far each one beat it. A negative shape parameter means the tail has a finite end, but no endpoint ("fastest possible time") is reported, since POT endpoint estimates are unstable.
+
+Last, a lookup table (`tables/you_vs_goat.csv`) gives, for reference times from 2:05 to 6:00, the share of the field finishing behind and the percent gap to the record. A 3:00 finishes ahead of 92.6% of this field and a 4:00 ahead of 43.2%.
 
 Stack: Python, pandas, NumPy, SciPy, matplotlib.
 
@@ -48,9 +49,7 @@ python analyze.py         # fits, lookup table and figures -> figures/ and table
 
 ## Limitations
 
-- Boston is a qualifying race, so this field is faster than a general-entry marathon. Every percentile describes this field only. A slower field would put the record further out.
-- One race, one year (2014). The 2013 race was stopped partway and is left out.
-- The record is set in `analyze.py` as Kelvin Kiptum's 2:00:35 (Chicago, 2023). A faster record changes that one mark and none of the field statistics.
+Boston is a qualifying race, so this field is faster than a general-entry marathon and every percentile describes this field only; a slower field would put the record further out. The data is one race in one year (2014), since the 2013 race was stopped partway and is left out. The record is set in `analyze.py` as Kelvin Kiptum's 2:00:35 (Chicago, 2023), and a faster record would change that one mark and none of the field statistics.
 
 ## License
 

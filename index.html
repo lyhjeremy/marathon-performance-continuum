@@ -123,7 +123,7 @@
   </dl>
 
   <h2>The field, with the record marked</h2>
-  <p>Fitted, the field is log-normal. The median is 3:52 and the slow tail pulls the mean to 4:03. Kiptum's record does not sit at the fast end of this curve. It sits to the left of all of it, including the winner.</p>
+  <p>Fitted, the field is log-normal, with a median of 3:52 and a slow tail that pulls the mean to 4:03. Kiptum's record lies to the left of the whole curve, winner included.</p>
   <figure>
     <div class="plate"><img src="figures/continuum.png" width="1425" height="750" alt="Histogram of 31,842 Boston 2014 finish times with a log-normal fit peaking near 3:35; the 2:00:35 world record line sits left of the entire field, and left of the winner's 2:09."></div>
     <figcaption>Boston 2014 finish times with the log-normal fit, the winner, the median and the world record.</figcaption>
@@ -148,7 +148,7 @@
   </div>
 
   <h2>The fast edge has a limit</h2>
-  <p>The body fit says little about the extreme fast end, so the tail gets its own model. I took the fastest 5% of finishers (1,593 runners under 2:56) and fitted a generalized Pareto distribution to how far each one beat that threshold. The shape parameter came out at ξ = −0.147. A negative shape means the tail ends at a finite point. The method is unreliable at locating that point, so I don't quote a fastest possible time.</p>
+  <p>The body fit says little about the extreme fast end, so the tail gets its own model. I took the fastest 5% of finishers (1,593 runners under 2:56) and fitted a generalized Pareto distribution to how far each one beat that threshold. The shape parameter came out at ξ = −0.147, and a negative shape means the tail ends at a finite point. Because the method is unreliable at locating that point, I don't quote a fastest possible time.</p>
   <figure>
     <div class="plate"><img src="figures/evt_tail.png" width="1275" height="750" loading="lazy" alt="Histogram of minutes under the 2:56 threshold for the fastest 5% of finishers, with a generalized Pareto curve of shape -0.15 that falls to zero at a finite distance."></div>
     <figcaption>Peaks-Over-Threshold fit on the fastest 5% of the field.</figcaption>
@@ -156,7 +156,7 @@
 
   <div class="caveat">
     <h2>What this doesn't show</h2>
-    <p>Boston is a qualifying race, so this is a field of runners who were already fast enough to enter. A general-entry marathon would sit slower and push the record further out. Every percentile on this page is about this one field.</p>
+    <p>Boston is a qualifying race, so everyone in this field was already fast enough to enter. Every percentile on this page is about this one field; a general-entry marathon would sit slower and push the record further out.</p>
     <p>The record on this page is Kelvin Kiptum's 2:00:35 (Chicago, 2023), the value hard-coded in <code>analyze.py</code>. A faster record would move the left mark and none of the field statistics.</p>
     <p>I don't quote the record's rarity as "1 in N". That would mean trusting the fitted density far beyond the data, so the record is described by what was observed: faster than all 31,842 finishers, 2.4 standard deviations from the mean.</p>
   </div>
