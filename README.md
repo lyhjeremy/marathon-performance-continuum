@@ -25,7 +25,7 @@ The body of the field is a shifted log-normal (floor 118 minutes) fitted with `s
 
 The fast tail uses Peaks-Over-Threshold Extreme Value Theory. The threshold is the fastest 5% of finishers (2:56, 1,593 runners), and a generalized Pareto distribution is fitted to how far each one beat it. A negative shape parameter means the tail has a finite end, but no endpoint ("fastest possible time") is reported, since POT endpoint estimates are unstable.
 
-Last, a lookup table (`tables/you_vs_goat.csv`) gives, for reference times from 2:05 to 6:00, the share of the field finishing behind and the percent gap to the record. A 3:00 finishes ahead of 92.6% of this field and a 4:00 ahead of 43.2%.
+Last, a lookup table (`tables/you_vs_goat.csv`) gives, for reference times from 2:05 to 6:00, the share of the field finishing behind and the percent gap to the record. A 3:00 finishes ahead of 92.6% of this field and a 4:00 ahead of 43.2%. The [write-up](https://lyhjeremy.github.io/marathon-performance-continuum/overview/#you) does the same lookup for any time, optionally within one gender and Boston age group.
 
 Stack: Python, pandas, NumPy, SciPy, matplotlib.
 
@@ -35,6 +35,7 @@ Stack: Python, pandas, NumPy, SciPy, matplotlib.
 pip install -r requirements.txt
 python fetch_data.py      # Boston 2014 finishers -> data/raw/ (gitignored)
 python analyze.py         # fits, lookup table and figures -> figures/ and tables/
+python export_web.py      # one-minute histograms for the site's chart and lookup -> tables/web_continuum.json
 ```
 
 ## Repo layout
@@ -44,7 +45,8 @@ python analyze.py         # fits, lookup table and figures -> figures/ and table
 | `fetch_data.py` | Downloads Boston 2014 results and keeps runners only (no wheelchair or handcycle), 2 to 7 hours |
 | `analyze.py` | Log-normal fit, record placement, generalized Pareto tail fit, percentile lookup, figures |
 | `figures/` | Field distribution with the record, tail fit, percentile curve |
-| `tables/` | `summary.csv`, `you_vs_goat.csv` |
+| `export_web.py` | Finish-time histograms by gender and age group, plus the log-normal curve, for the site |
+| `tables/` | `summary.csv`, `you_vs_goat.csv`, `web_continuum.json` (chart data) |
 | `index.html`, `overview/` | The GitHub Pages site |
 
 ## Limitations

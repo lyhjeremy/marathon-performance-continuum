@@ -2,7 +2,7 @@
 
 *One distribution from the back of the field to the world record.*
 
-Every one of the 31,842 finishers of the 2014 Boston Marathon was slower than the world record. The fastest was the winner, in 2:09, and Kelvin Kiptum's 2:00:35 sits to the left of the entire field. I wanted to see that gap on one time axis, with a club runner's finish and the record as two points on the same curve. (My own best, 2:48, falls between the 2:45 and 3:00 rows of `tables/you_vs_goat.csv`, ahead of more than 92.6% of this field.) Boston 2014 gave me a full field to draw the curve from.
+Every one of the 31,842 finishers of the 2014 Boston Marathon was slower than the world record. The fastest was the winner, in 2:09, and Kelvin Kiptum's 2:00:35 sits to the left of the entire field. I wanted to see that gap on one time axis, with a club runner's finish and the record as two points on the same curve. (My own best, 2:48, finishes ahead of 97.5% of this field, counted from the same finisher file.) Boston 2014 gave me a full field to draw the curve from.
 
 ## The shape of a field
 

@@ -246,6 +246,43 @@
   .paceband span em { font-style: normal; color: var(--paper); }
   .bignum { line-height: 1; margin-bottom: 14px; }
   .paceband-key { font-family: var(--sans); font-size: 14.5px; color: var(--muted); margin-top: 10px; }
+
+  .stop .fig-title, .fig-title { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2.8vw, 28px); line-height: 1.1; margin: 0 0 4px; color: var(--ink); }
+  .seg { display: flex; flex-wrap: wrap; margin: 14px 0 12px; }
+  .seg button { font: 600 13.5px/1.2 var(--mono); padding: 8px 11px; border: 1px solid var(--edge); background: transparent; color: var(--ink); cursor: pointer; margin: 0 -1px -1px 0; }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .chart { border: 1px solid var(--rule); background: var(--card); padding: 10px 10px 4px; }
+  .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .chart svg:focus { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .chart text { font-family: var(--mono); font-size: 12px; fill: var(--muted); }
+  .chart .grid { stroke: var(--rule); stroke-width: 1; }
+  .chart .b { fill: var(--accent2); } .chart .b.on { fill: var(--ink); }
+  .chart .fit { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-dasharray: 5 4; }
+  .chart .mk { stroke: var(--ink); stroke-width: 1.2; }
+  .chart .mk.wr { stroke: var(--accent); stroke-width: 2.5; }
+  .chart .mk.you { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 3 3; }
+  .chart .mlab { font-family: var(--display); font-size: 14px; font-weight: 600; fill: var(--ink); }
+  .chart .mlab.wr, .chart .mlab.you { fill: var(--accent); }
+  .readout { font-family: var(--mono); font-size: 13.5px; color: var(--ink); min-height: 1.6em; margin: 10px 0 0; }
+  .bib { margin-top: 26px; border: 2px solid var(--ink); background: var(--card); }
+  .bib-head { display: flex; justify-content: space-between; gap: 4px 10px; flex-wrap: wrap; padding: 9px 16px; background: var(--ink); color: var(--paper); font: 600 12px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+  .bib-body { padding: 18px 18px 18px; }
+  .bib-in { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: flex-end; }
+  .field { font-family: var(--sans); }
+  .field label { display: block; font-size: 14.5px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+  .field input { font: 600 26px/1.1 var(--display); letter-spacing: .03em; width: 8.8ch; padding: 6px 10px; border: 1px solid var(--edge); background: var(--paper); color: var(--ink); }
+  .field select { font: 600 15px/1.2 var(--sans); padding: 10px 8px; border: 1px solid var(--edge); background: var(--paper); color: var(--ink); min-width: 8.5rem; }
+  .field select:disabled { color: var(--muted); border-color: var(--rule); }
+  .bib-body .hint { font-family: var(--sans); font-size: 13px; color: var(--muted); margin: 8px 0 0; }
+  .bib-body .hint.warn { color: var(--accent); }
+  .you-big { margin: 18px 0 8px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
+  .you-big span { font-family: var(--display); font-weight: 700; font-size: clamp(54px, 9vw, 84px); line-height: .95; color: var(--accent); }
+  .you-big small { font-family: var(--sans); font-size: 16px; color: var(--ink); }
+  .pbar { position: relative; height: 12px; background: color-mix(in srgb, var(--accent2) 22%, var(--card)); border: 1px solid var(--edge); margin: 6px 0 4px; }
+  .pbar i { position: absolute; top: -7px; width: 3px; height: 24px; background: var(--accent); transform: translateX(-1px); }
+  .pbar-k { display: flex; justify-content: space-between; font: 400 11.5px/1.3 var(--mono); color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; }
+  .bib-body p { font-family: var(--sans); font-size: 15.5px; line-height: 1.5; color: var(--ink2); margin: 0; max-width: 62ch; }
+  @media (max-width: 640px) { .bib-body { padding: 14px 12px; } }
 </style>
 </head>
 <body>
@@ -260,23 +297,22 @@
     <h1>The marathon record is faster than every Boston finisher</h1>
 
     <p class="hero-sub">
-      I fitted the finish times of the whole 2014 Boston Marathon field, all
-      31,842 runners, and marked Kelvin Kiptum's 2:00:35 on the same axis. The
-      race winner ran 2:09, so the record sits off the fast end of the field
-      altogether: 2.4 standard deviations below the mean, with the median
-      finisher taking 93% longer.
+      The 2014 Boston Marathon was won in 2:08:37. Kelvin Kiptum's world record,
+      2:00:35, is eight minutes faster than that, and off the fast end
+      of the whole 31,842-runner field: 2.4 standard deviations below the mean.
+      The median finisher took 93% longer than the record.
     </p>
 
     <div class="cta-row">
-      <a class="btn btn-primary" href="../">See the continuum strip</a>
+      <a class="btn btn-primary" href="#you">Place your own time</a>
       <a class="textlink" href="https://github.com/lyhjeremy/marathon-performance-continuum">Code and data</a>
     </div>
 
     <div class="claims">
       <div class="claim">
         <div class="n">3:52</div>
-        <p>Median finish time. The field is log-normal, with a mean of 4:03 and a
-           slow tail running out to the 7:00 cut-off.</p>
+        <p>Median finish time. The field is close to log-normal, with a mean of
+           4:03 and a slow tail running out to the 7:00 cut-off.</p>
       </div>
       <div class="claim">
         <div class="n">0 of 31,842</div>
@@ -301,16 +337,14 @@
 
   <section class="stop">
     <p class="eyebrow">Start · the question</p>
-    <h2>Two questions on one axis</h2>
+    <h2>Two points on one axis</h2>
     <p>
-      I have run 14 marathons, with a best of 2:48 in Berlin. Where a runner's
-      time sits and how fast the record is become one question once both go on
-      a single time axis: a club runner's
-      finish is one point on the curve of a field, and the record is another
-      point a long way to the left.
+      I have run 14 marathons, with a best of 2:48 in Berlin. Put a club runner's
+      time and the world record on the same time axis and they become two points
+      on one curve: the curve a whole marathon field makes.
     </p>
     <p>
-      The curve comes from the 2014 Boston Marathon, pulled from the public
+      The curve here is the 2014 Boston Marathon, from the public
       <a href="https://github.com/llimllib/bostonmarathon">llimllib/bostonmarathon</a>
       mirror. I kept runners only (no wheelchair or handcycle entries) with
       times between 2 and 7 hours, which leaves 31,842 finishers.
@@ -321,22 +355,29 @@
     <p class="eyebrow">Body · log-normal fit</p>
     <h2>A marathon field is log-normal</h2>
     <p>
-      A shifted log-normal, with its floor set at 118 minutes, tracks the
-      histogram closely. The median is <strong>3:52</strong>, and the slow tail
-      pulls the mean to <strong>4:03</strong> (standard deviation 51 minutes).
-      The shape is lopsided; a runner can finish hours behind the middle of the
-      field, while the winner was only 1:43 ahead of it.
+      A shifted log-normal with its floor at 118 minutes tracks the histogram
+      closely. The median is 3:52, and the slow tail pulls the mean to 4:03
+      (standard deviation 51 minutes). The shape is lopsided: a runner can finish
+      hours behind the middle of the field, while the winner was 1:43 ahead of it.
+      Then there is the gap on the left, between the record and the winner, where
+      nobody in the field ran.
     </p>
-    <p>
-      The record is to the left of the whole curve. No finisher ran faster than
-      2:00:35, and the winner was more than eight minutes slower.
-    </p>
-    <figure>
-      <div class="plate">
-        <img width="1425" height="750" src="../figures/continuum.png" fetchpriority="high"
-          alt="Histogram of 31,842 Boston 2014 finish times with a log-normal fit peaking near 3:35. The 2:00:35 world record line sits left of the whole field, including the winner's 2:09." />
+    <figure id="cont-fig">
+      <p class="fig-title">Nobody in the field ran inside the gap between 2:00:35 and 2:09</p>
+      <div class="seg" role="group" aria-label="Which runners to show" id="cont-seg">
+        <button type="button" data-g="all" aria-pressed="true">Everyone</button>
+        <button type="button" data-g="F" aria-pressed="false">Women</button>
+        <button type="button" data-g="M" aria-pressed="false">Men</button>
       </div>
-      <figcaption>Finish times with the log-normal fit, the winner (2:09), the median (3:52) and the record.</figcaption>
+      <div class="chart" id="cont"></div>
+      <p class="readout" id="cont-read" aria-live="polite">Hover the chart, or focus it and use the arrow keys, to read a bar.</p>
+      <noscript>
+        <div class="plate"><img width="1425" height="750" src="../figures/continuum.png" alt="Histogram of 31,842 Boston 2014 finish times with a log-normal fit peaking near 3:35. The 2:00:35 world record line sits left of the whole field, including the winner's 2:09." /></div>
+      </noscript>
+      <figcaption>Finishers per two-minute bin. The line is the log-normal fit to the
+        whole field, scaled to the bars, so it only matches under "Everyone". Data
+        from <code>tables/web_continuum.json</code>, written by
+        <code>export_web.py</code> from the file <code>analyze.py</code> reads.</figcaption>
     </figure>
   </section>
 
@@ -350,33 +391,64 @@
     <p>
       The body fit says little about the extreme fast end, so the tail gets a
       model of its own. I set the threshold at the fastest 5% of the field
-      (2:56), measured how far each of those 1,593 runners beat it, and fitted
-      a generalized Pareto distribution to those gaps. The shape parameter is
+      (2:56), measured how far each of those 1,593 runners beat it, and fitted a
+      generalized Pareto distribution to those gaps. The shape parameter is
       −0.147.
     </p>
     <p>
-      A negative shape means the distribution is <strong>bounded</strong>, with
-      fast performances stopping at some finite point. Peaks-Over-Threshold can
-      tell whether such a bound exists but is poor at saying where it is, so I
-      report the shape and leave out any estimate of a fastest possible time.
+      A negative shape means the distribution is bounded: fast performances stop
+      at some finite point. Peaks-Over-Threshold can tell whether such a bound
+      exists but is poor at saying where it is, so I report the shape and leave
+      out any estimate of a fastest possible time.
     </p>
     <figure>
       <div class="plate">
         <img width="1275" height="750" src="../figures/evt_tail.png" loading="lazy"
           alt="Histogram of minutes under the 2:56 threshold for the fastest 5 percent of finishers, with a generalized Pareto curve of shape -0.15 falling toward zero." />
       </div>
-      <figcaption>Exceedances below the 2:56 threshold and the fitted generalized Pareto curve.</figcaption>
+      <figcaption>Exceedances below the 2:56 threshold and the fitted generalized Pareto curve, as drawn by <code>analyze.py</code>.</figcaption>
     </figure>
   </section>
 
-  <section class="stop">
+  <section class="stop stop--key" id="you">
     <p class="eyebrow">Lookup · your race</p>
-    <h2>A pace band for the whole field</h2>
+    <h2>Where your time lands</h2>
     <p>
-      The last output is a lookup from finish time to place in the field.
-      Each cell below gives the share of the 31,842 finishers that time beats,
-      and how much slower it is than the record. The numbers are
-      <code>tables/you_vs_goat.csv</code>.
+      Enter a marathon time and, if you like, narrow the comparison to your gender
+      and Boston's age group. The share is counted directly from the finishers,
+      one-minute bins, with no fitted curve involved.
+    </p>
+    <div class="bib">
+      <div class="bib-head"><span>Finish-time lookup</span><span>Boston 2014 field</span></div>
+      <div class="bib-body">
+        <div class="bib-in">
+          <div class="field">
+            <label for="you-t">Your time</label>
+            <input type="text" id="you-t" value="3:30:00" inputmode="numeric" autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="field">
+            <label for="you-g">Compare with</label>
+            <select id="you-g"><option value="all">Everyone</option><option value="F">Women</option><option value="M">Men</option></select>
+          </div>
+          <div class="field">
+            <label for="you-a">Age group</label>
+            <select id="you-a" disabled><option value="-1">All ages</option></select>
+          </div>
+        </div>
+        <p class="hint" id="you-hint">h:mm:ss or h:mm, between 2:00 and 7:00</p>
+        <div aria-live="polite">
+          <div class="you-big"><span id="you-pct">&nbsp;</span><small id="you-of">&nbsp;</small></div>
+          <div class="pbar" aria-hidden="true"><i id="you-pin"></i></div>
+          <div class="pbar-k" aria-hidden="true"><span>last</span><span>first</span></div>
+          <p id="you-text"></p>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:22px">
+      For reference, the fixed rows in <code>tables/you_vs_goat.csv</code>, printed
+      as a pace band. Each cell gives a finish time, the share of the field behind
+      it, and how much longer it takes than the record.
     </p>
     <div class="paceband" role="list" aria-label="Finish time, share of the Boston 2014 field finished ahead of, and percent slower than the 2:00:35 record">
       <div role="listitem"><b>2:30</b><span><em>99.7%</em> behind</span><span>+24.4%</span></div>
@@ -388,39 +460,34 @@
       <div role="listitem"><b>5:00</b><span><em>14.4%</em> behind</span><span>+148.8%</span></div>
       <div role="listitem"><b>6:00</b><span><em>2.8%</em> behind</span><span>+198.5%</span></div>
     </div>
-    <p class="paceband-key">Each cell: finish time, the share of the field finishing behind it, and how much longer it takes than the 2:00:35 record. A 4:00 marathon takes almost exactly twice as long.</p>
-    <figure>
-      <div class="plate">
-        <img width="1275" height="750" src="../figures/percentile.png" loading="lazy"
-          alt="Curve of finish time against the percent of the Boston field finished ahead of, steepest between 3:00 and 4:00, with points marked at 2:30, 3:00, 3:30, 4:00 and 5:00." />
-      </div>
-      <figcaption>Finish time against the share of the field it beats.</figcaption>
-    </figure>
+    <p class="paceband-key">A 4:00 marathon takes almost exactly twice as long as the record.</p>
   </section>
 
   <section class="stop stop--warn">
     <p class="eyebrow">Limits · one field, one year</p>
     <h2>What this doesn't show</h2>
     <p>
-      Boston is a qualifying race, and almost everyone in this field had to run
-      a qualifying time to enter, so the curve sits faster than a general-entry
-      marathon would. When the band says a 3:00 is ahead of 92.6%, it means
+      Boston is a qualifying race, and almost everyone in this field had to run a
+      qualifying time to enter, so the curve sits faster than a general-entry
+      marathon would. When the lookup says a 3:00 is ahead of 92.6%, it means
       ahead of this field; a slower field would push the record further out.
+      The age-group comparison inherits the same bias, because Boston's
+      qualifying times loosen with age.
     </p>
     <p>
-      The field is also one race in one year, Boston 2014. The 2013 race is left
-      out because it was stopped partway through.
+      The field is one race in one year, Boston 2014. The 2013 race is left out
+      because it was stopped partway through.
     </p>
     <p>
-      I don't give the record's rarity as "1 in N". That needs the fitted
-      density far past the last data point, so the record is described by what
-      was observed: faster than all 31,842 finishers and 2.4 standard
-      deviations below the mean.
+      I don't give the record's rarity as "1 in N". That needs the fitted density
+      far past the last data point, so the record is described by what was
+      observed: faster than all 31,842 finishers and 2.4 standard deviations below
+      the mean.
     </p>
     <p>
-      The record used is Kelvin Kiptum's 2:00:35 (Chicago, 2023), the value set
-      in <code>analyze.py</code>. A faster record would move that one mark and
-      none of the field statistics.
+      The record used is Kelvin Kiptum's 2:00:35 (Chicago, 2023), the value set in
+      <code>analyze.py</code>. A faster record would move that one mark and none
+      of the field statistics.
     </p>
   </section>
 
@@ -429,11 +496,12 @@
     <h2>Where the numbers come from</h2>
     <dl class="specs">
       <div class="spec"><dt>Data</dt><dd>Boston 2014 official results from the <a href="https://github.com/llimllib/bostonmarathon">llimllib/bostonmarathon</a> mirror, runners only, 2:00 to 7:00</dd></div>
-      <div class="spec"><dt>Sample</dt><dd>31,842 finishers</dd></div>
+      <div class="spec"><dt>Sample</dt><dd>31,842 finishers: 14,316 women and 17,526 men</dd></div>
       <div class="spec"><dt>Body fit</dt><dd>Shifted log-normal (floor 118 min), <code>scipy.stats.lognorm</code></dd></div>
       <div class="spec"><dt>Tail fit</dt><dd>Peaks-Over-Threshold, generalized Pareto on the fastest 5% (<code>scipy.stats.genpareto</code>)</dd></div>
       <div class="spec"><dt>Reported</dt><dd>Tail shape ξ only; no endpoint estimate</dd></div>
-      <div class="spec"><dt>Built with</dt><dd>Python, pandas, NumPy, SciPy, matplotlib</dd></div>
+      <div class="spec"><dt>Page data</dt><dd><code>export_web.py</code> writes one-minute histograms by gender and age group and the log-normal curve to <code>tables/web_continuum.json</code></dd></div>
+      <div class="spec"><dt>Built with</dt><dd>Python, pandas, NumPy, SciPy, matplotlib; the charts here are plain SVG</dd></div>
     </dl>
   </section>
 
@@ -442,7 +510,7 @@
 
 <div class="wrap">
   <section class="close">
-    <h2>Find your time on the band, then look left</h2>
+    <h2>Find your time on the curve, then look left</h2>
     <div class="cta-row">
       <a class="btn btn-primary" href="../">Back to the continuum strip</a>
       <a class="textlink" href="https://github.com/lyhjeremy/marathon-performance-continuum">Code and data</a>
@@ -458,5 +526,89 @@
     </p>
   </footer>
 </div>
+
+<script>
+(function () {
+  // tables/web_continuum.json (export_web.py): one-minute counts from 120 to 420 minutes
+  var C = {"start_min":120,"n":31842,"median":232.3,"winner":128.62,"all":[0,0,0,0,0,0,0,0,3,2,0,3,3,0,4,0,1,4,1,4,6,5,4,7,4,3,10,9,8,12,14,12,17,13,28,31,17,36,37,42,35,46,50,50,73,58,56,80,88,83,80,95,102,119,138,136,142,175,199,223,163,158,167,181,186,165,158,199,190,209,188,224,249,238,240,206,203,236,274,274,226,246,289,256,315,270,298,304,321,347,285,306,296,310,285,304,337,320,316,329,293,297,287,302,288,293,279,274,279,276,266,267,257,317,312,292,257,281,268,274,197,203,202,212,202,191,194,150,207,182,215,186,170,191,181,171,172,168,208,169,168,132,164,159,167,144,175,171,150,156,142,153,151,138,120,129,130,123,129,139,129,158,137,124,130,129,121,116,147,134,116,104,111,136,121,89,109,129,95,105,94,73,84,85,78,73,84,88,101,85,81,80,79,76,74,84,55,84,88,67,72,85,73,61,64,44,62,66,61,68,66,63,63,56,58,55,61,67,55,62,55,52,49,53,49,42,62,48,46,39,29,34,46,33,20,41,36,25,38,26,37,26,27,19,22,27,31,19,18,25,23,23,30,23,14,21,21,20,22,27,22,17,24,14,11,35,9,13,15,15,18,14,8,12,9,15,12,11,9,9,9,9,12,8,9,12,4,7,6,5,6,3,6,2,9,5,5,5,4,5,0],"lognorm":{"floor":118.0,"shape":0.416498,"scale":114.65691,"x":[120,122,124,126,128,130,132,134,136,138,140,142,144,146,148,150,152,154,156,158,160,162,164,166,168,170,172,174,176,178,180,182,184,186,188,190,192,194,196,198,200,202,204,206,208,210,212,214,216,218,220,222,224,226,228,230,232,234,236,238,240,242,244,246,248,250,252,254,256,258,260,262,264,266,268,270,272,274,276,278,280,282,284,286,288,290,292,294,296,298,300,302,304,306,308,310,312,314,316,318,320,322,324,326,328,330,332,334,336,338,340,342,344,346,348,350,352,354,356,358,360,362,364,366,368,370,372,374,376,378,380,382,384,386,388,390,392,394,396,398,400,402,404,406,408,410,412,414,416,418,420],"pdf":[0.0,0.0,0.0,0.0,0.0,0.0,2e-07,8e-07,2.7e-06,7.3e-06,1.69e-05,3.46e-05,6.46e-05,0.0001113,0.0001795,0.0002738,0.0003982,0.0005561,0.0007496,0.0009797,0.0012461,0.0015474,0.001881,0.0022437,0.0026311,0.0030386,0.003461,0.0038933,0.00433,0.0047661,0.0051969,0.0056177,0.0060246,0.006414,0.0067827,0.0071281,0.0074482,0.0077413,0.0080063,0.0082423,0.0084492,0.0086267,0.0087753,0.0088955,0.008988,0.0090539,0.0090944,0.0091105,0.0091039,0.0090757,0.0090275,0.0089609,0.0088772,0.008778,0.0086647,0.0085387,0.0084014,0.0082541,0.0080981,0.0079345,0.0077645,0.0075892,0.0074095,0.0072263,0.0070406,0.0068531,0.0066645,0.0064756,0.0062868,0.0060989,0.0059121,0.0057271,0.0055442,0.0053637,0.005186,0.0050113,0.0048399,0.0046719,0.0045075,0.0043469,0.0041901,0.0040373,0.0038885,0.0037437,0.0036031,0.0034665,0.003334,0.0032055,0.0030811,0.0029607,0.0028443,0.0027317,0.0026229,0.0025179,0.0024166,0.0023189,0.0022247,0.0021339,0.0020465,0.0019624,0.0018814,0.0018034,0.0017285,0.0016565,0.0015873,0.0015207,0.0014569,0.0013955,0.0013366,0.0012801,0.0012259,0.0011739,0.001124,0.0010761,0.0010303,0.0009863,0.0009442,0.0009038,0.0008651,0.000828,0.0007925,0.0007585,0.0007259,0.0006947,0.0006648,0.0006362,0.0006089,0.0005827,0.0005576,0.0005336,0.0005106,0.0004887,0.0004676,0.0004475,0.0004282,0.0004098,0.0003922,0.0003753,0.0003592,0.0003438,0.000329,0.0003149,0.0003014,0.0002884,0.0002761,0.0002643,0.0002529,0.0002421,0.0002318,0.0002219,0.0002124]},"groups":{"M":{"n":17526,"c":[0,0,0,0,0,0,0,0,3,2,0,3,3,0,4,0,1,4,0,3,4,3,2,5,3,3,10,8,8,12,12,10,14,11,27,30,16,34,36,42,35,45,47,49,71,55,55,75,85,80,76,91,93,111,130,126,136,167,188,209,153,145,153,158,163,135,140,177,154,172,159,174,199,189,188,139,152,169,194,192,145,152,186,159,191,149,166,183,176,197,145,159,147,153,138,152,157,155,138,150,141,126,125,131,122,117,110,113,128,124,104,116,116,126,130,118,116,135,118,121,77,91,78,73,94,80,92,60,104,68,91,81,72,90,76,79,69,79,98,84,83,64,77,68,80,61,88,82,73,70,61,68,75,64,50,61,61,59,59,62,61,64,67,54,54,67,66,58,74,59,62,51,55,69,63,38,53,66,48,45,47,36,41,34,41,32,50,48,54,42,45,54,33,37,33,38,33,40,36,27,35,41,32,33,34,17,35,24,41,35,31,31,31,21,32,25,32,39,19,24,21,24,21,30,24,23,34,18,19,17,15,18,18,14,7,18,15,9,15,10,18,13,11,12,9,9,15,5,8,13,7,5,17,9,6,8,7,11,13,11,6,10,14,6,5,22,3,8,5,7,6,7,6,8,3,5,4,4,4,3,3,3,2,3,7,2,0,4,3,0,2,1,4,0,1,1,2,4,2,3,0],"ages":[{"lo":18,"hi":34,"n":3788,"c":[0,0,0,0,0,0,0,0,2,2,0,3,3,0,4,0,0,4,0,2,3,3,2,4,2,2,9,8,7,10,11,8,14,5,20,21,8,24,26,31,22,28,28,31,44,37,29,39,56,49,31,54,48,43,58,63,58,69,74,78,55,54,52,59,61,35,30,42,31,27,36,49,40,39,35,24,25,33,37,25,20,28,22,21,21,15,22,22,13,26,12,26,23,12,18,21,19,15,11,12,11,7,13,16,9,12,9,8,17,14,11,13,11,11,15,17,13,16,16,14,4,10,14,10,11,9,7,7,9,10,28,16,12,10,14,12,13,17,15,12,8,8,12,10,14,13,17,20,16,13,11,11,13,11,6,17,7,9,8,15,13,20,10,11,12,15,14,13,22,14,9,7,9,13,17,9,10,15,4,7,6,13,10,10,10,5,9,9,19,11,11,17,8,8,7,10,9,13,4,3,6,11,10,9,3,5,8,4,8,7,6,6,7,4,9,3,3,9,6,5,3,6,3,9,4,1,7,2,3,1,3,2,3,2,2,5,2,3,3,1,5,5,3,3,1,3,0,1,3,2,1,0,3,2,0,1,1,4,3,5,0,3,3,0,0,4,0,3,0,1,3,1,2,2,1,1,2,0,1,0,0,0,1,2,1,0,0,1,0,0,0,0,0,0,0,1,1,0,1,0,0]},{"lo":35,"hi":39,"n":2111,"c":[0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,2,1,1,0,3,4,2,5,4,3,7,7,8,7,6,11,8,14,16,9,17,13,14,17,35,30,25,32,30,40,51,30,30,42,23,30,35,31,38,32,35,29,25,32,19,33,25,16,15,21,23,14,17,15,19,28,18,14,17,19,26,18,14,9,16,7,14,7,14,15,11,9,11,5,9,6,6,8,13,11,9,6,6,11,7,11,8,10,7,5,12,7,6,6,4,13,7,6,1,4,4,7,9,4,5,8,2,7,2,10,9,12,5,14,8,10,7,6,11,5,3,9,8,2,7,6,3,13,7,7,10,5,5,8,2,6,8,4,3,6,4,5,5,9,7,4,10,4,3,9,3,5,4,4,1,5,5,12,8,10,8,5,9,5,8,4,3,3,4,6,1,3,3,2,6,3,3,6,0,7,4,4,2,2,2,2,1,6,4,2,4,3,7,3,3,4,4,8,0,3,2,0,1,2,1,1,3,3,0,1,0,3,2,0,2,1,0,1,0,0,2,1,1,4,1,0,0,0,0,1,2,1,0,0,2,0,0,0,3,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0]},{"lo":40,"hi":44,"n":2627,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,7,3,4,4,3,4,5,7,6,9,6,6,15,11,6,15,9,18,19,22,21,30,37,35,37,29,33,19,28,32,33,32,44,50,50,37,39,57,50,41,34,26,36,46,42,27,27,33,18,22,27,27,34,32,24,21,27,19,23,18,13,24,23,19,13,21,14,16,15,12,12,14,12,15,11,16,9,16,17,9,13,13,12,16,18,8,11,10,9,10,5,7,8,15,5,5,14,10,10,3,12,10,10,8,9,11,12,12,4,7,7,9,9,9,9,8,7,7,5,13,5,8,8,11,11,9,5,8,9,5,6,6,9,13,9,13,3,11,9,9,5,12,5,6,6,5,3,2,3,7,7,5,7,1,6,5,3,4,3,5,8,5,3,3,1,6,7,3,2,7,2,4,1,6,4,4,4,2,4,2,6,5,6,1,2,5,0,2,3,2,5,9,6,1,2,2,2,3,2,0,2,1,1,0,1,1,0,2,2,2,0,2,0,1,1,3,1,2,2,3,0,1,0,2,0,2,1,2,0,1,3,0,1,0,0,2,0,2,0,1,0,0,0,0,1,1,1,0,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,2,0]},{"lo":45,"hi":49,"n":2914,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,1,0,0,2,2,1,1,2,2,4,1,3,4,5,6,6,10,8,5,8,14,9,11,22,24,23,26,12,23,23,24,15,26,36,21,35,29,38,40,50,43,33,46,47,43,58,48,40,60,50,57,35,40,47,45,43,34,33,37,40,24,26,24,26,33,29,41,27,23,36,31,29,22,22,27,25,12,11,19,25,26,14,19,26,18,16,10,11,10,10,11,13,13,7,13,15,9,8,9,18,11,11,8,11,12,11,10,10,7,8,13,7,16,14,13,7,8,13,17,11,3,10,3,4,11,4,7,11,11,8,9,8,12,3,7,10,5,12,7,16,7,2,9,6,8,3,5,6,5,7,4,6,5,5,8,4,5,4,2,3,5,7,3,6,7,4,7,4,5,1,5,3,1,5,3,4,1,4,5,2,4,5,2,3,2,2,3,4,2,3,4,2,2,2,2,2,5,3,0,3,1,2,4,0,2,3,0,3,0,1,1,4,2,0,0,1,0,1,2,1,0,0,1,0,1,0,0,2,1,1,0,2,2,0,0,2,1,2,0,1,0,1,0,0,1,0,1,1,0,0,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0]},{"lo":50,"hi":54,"n":2468,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,1,0,1,1,3,1,5,0,2,0,3,2,5,5,3,6,4,7,4,4,12,18,9,12,13,22,11,13,14,14,15,16,21,13,22,25,22,19,28,32,29,27,25,19,39,33,38,41,41,46,47,55,35,30,30,30,33,35,31,30,25,44,25,33,26,24,32,28,25,23,16,20,29,25,21,27,21,24,24,21,20,17,17,17,11,13,11,16,19,11,16,9,12,6,13,13,8,11,8,9,15,11,11,4,8,9,11,7,10,6,10,7,4,9,11,9,6,6,8,6,6,11,6,6,6,7,6,11,8,10,8,4,13,4,4,9,5,2,6,11,7,6,8,1,5,7,6,2,5,9,4,3,4,3,7,4,4,3,5,6,4,10,6,6,2,8,6,1,6,4,2,4,4,5,4,3,6,1,3,8,2,5,3,1,1,3,3,3,2,2,3,3,1,1,1,2,1,2,1,1,1,0,0,1,1,2,1,0,4,1,0,2,2,1,1,1,1,0,1,4,1,0,0,2,4,1,0,6,0,0,1,2,0,1,0,0,1,0,2,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0]},{"lo":55,"hi":59,"n":1774,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,0,0,0,0,2,1,2,0,2,1,1,5,3,1,4,3,2,3,4,2,3,3,4,6,6,9,5,6,11,3,7,5,10,14,9,19,14,18,18,10,18,15,15,15,22,24,23,23,29,33,40,39,22,31,24,19,30,17,24,23,20,18,26,26,18,22,17,18,28,25,20,24,21,20,14,13,10,10,18,13,14,9,20,11,11,8,7,18,16,13,11,10,13,11,10,11,7,10,5,5,13,7,9,14,6,5,11,7,6,8,6,6,4,7,10,3,6,5,10,5,10,6,10,10,3,7,4,8,9,7,4,7,6,7,6,3,1,3,4,2,5,1,4,4,4,4,5,4,4,4,1,2,5,3,4,4,5,2,3,0,3,3,5,3,5,3,4,3,4,2,5,5,1,2,2,3,3,5,1,2,2,4,4,2,2,1,3,2,0,0,2,3,3,1,4,0,2,0,1,1,2,0,2,3,0,0,2,0,0,1,1,1,0,1,0,1,2,1,0,2,0,1,2,2,0,0,0,1,0,0,0,0,0,1,1,1,1,0,0,0,0,2,0,0,1,0,0,0,0,0,0,1,0,0,0]},{"lo":60,"hi":64,"n":1103,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,2,3,0,1,2,1,1,2,0,3,0,3,1,7,3,2,2,3,0,5,2,4,2,3,7,2,4,6,6,7,8,9,6,12,8,8,12,12,13,6,5,8,12,13,14,9,26,20,16,15,11,13,22,13,14,10,15,13,13,14,12,15,13,17,8,7,12,10,8,12,13,9,11,13,13,14,10,8,9,13,5,11,8,1,7,7,7,8,9,6,6,5,8,8,3,8,5,10,8,2,6,4,6,4,4,6,7,7,5,6,1,4,10,6,7,6,1,10,2,0,2,5,4,4,4,7,5,1,4,2,2,3,2,4,2,1,4,2,3,3,1,4,4,4,6,2,2,4,1,2,2,4,2,2,1,2,0,4,3,3,5,2,0,0,3,0,2,1,0,1,2,1,1,1,2,3,2,2,2,1,0,0,3,0,2,0,0,0,2,1,2,1,2,2,2,1,1,1,1,1,3,0,0,1,0,0,0,1,1,0,2,0,2,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0]},{"lo":65,"hi":69,"n":533,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,1,0,0,1,1,0,1,0,0,0,0,0,2,1,0,0,1,0,1,1,0,2,2,2,3,2,1,1,2,2,0,1,0,2,4,5,1,4,3,3,0,4,5,5,3,6,6,9,6,4,3,4,6,4,10,4,7,5,8,8,6,6,4,5,2,7,10,6,7,3,6,6,4,9,3,6,10,9,7,6,4,2,2,3,9,9,4,1,1,7,8,4,3,5,6,4,3,3,8,2,4,0,3,2,3,7,1,6,5,4,3,1,5,2,3,4,3,0,2,7,1,2,2,1,3,0,1,1,2,2,3,2,1,1,3,2,2,1,3,2,1,0,0,1,3,2,2,2,0,1,2,1,2,1,0,2,3,0,1,4,3,1,1,0,1,0,2,1,1,0,0,0,1,1,1,0,0,0,0,1,2,0,0,1,1,0,3,1,1,0,1,0,1,1,1,0,0,0,0,2,0,2,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0]},{"lo":70,"hi":99,"n":208,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,1,0,1,0,0,2,0,0,0,2,1,0,1,1,1,0,1,1,1,3,1,1,4,1,0,0,1,1,0,3,1,4,0,1,2,0,0,1,2,2,2,0,1,3,4,3,1,3,1,0,1,1,2,2,3,2,3,2,2,0,0,2,2,0,0,1,3,2,4,1,1,0,4,0,2,3,0,1,2,1,0,1,1,1,0,0,1,1,1,1,2,2,2,0,1,0,0,1,4,2,2,0,0,0,0,3,1,0,1,4,2,2,3,2,2,3,4,1,0,1,1,0,2,1,0,1,0,2,0,0,2,1,2,2,1,0,2,0,0,2,1,1,0,1,0,0,0,3,0,2,0,0,0,1,0,1,3,0,0,0,0,1,0,0,0,2,1,0,0,1,0,0,1,0,1,0,0,0,1,1,0,0,0,0,0,2,0,0,1,0,0,0,0,1,0,0,0,0,1,1,0,0]}]},"F":{"n":14316,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,2,1,0,0,1,0,0,2,2,3,2,1,1,1,2,1,0,0,1,3,1,2,3,1,5,3,3,4,4,9,8,8,10,6,8,11,14,10,13,14,23,23,30,18,22,36,37,29,50,50,49,52,67,51,67,80,82,81,94,103,97,124,121,132,121,145,150,140,147,149,157,147,152,180,165,178,179,152,171,162,171,166,176,169,161,151,152,162,151,141,191,182,174,141,146,150,153,120,112,124,139,108,111,102,90,103,114,124,105,98,101,105,92,103,89,110,85,85,68,87,91,87,83,87,89,77,86,81,85,76,74,70,68,69,64,70,77,68,94,70,70,76,62,55,58,73,75,54,53,56,67,58,51,56,63,47,60,47,37,43,51,37,41,34,40,47,43,36,26,46,39,41,46,22,44,52,40,37,44,41,28,30,27,27,42,20,33,35,32,32,35,26,30,29,28,36,38,34,28,28,23,25,19,28,30,27,22,14,16,28,19,13,23,21,16,23,16,19,13,16,7,13,18,16,14,10,12,16,18,13,14,8,13,14,9,9,16,16,7,10,8,6,13,6,5,10,8,12,7,2,4,6,10,8,7,5,6,6,6,10,5,2,10,4,3,3,5,4,2,2,2,8,4,3,1,2,2,0],"ages":[{"lo":18,"hi":34,"n":4872,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,2,1,0,0,1,0,0,2,2,2,2,1,1,0,1,1,0,0,0,2,1,2,3,1,1,2,3,4,2,5,4,6,6,2,4,7,9,8,8,9,13,15,23,7,14,21,23,19,28,33,27,23,37,33,42,48,45,45,51,51,58,72,63,63,60,69,74,62,69,60,64,58,55,64,61,55,57,58,53,51,53,51,50,35,35,43,35,44,36,29,41,44,37,27,34,30,31,22,22,32,24,19,24,22,23,29,28,30,18,23,21,20,18,19,18,28,22,24,19,21,26,23,28,23,26,19,21,25,26,20,31,22,22,20,17,27,25,24,27,24,21,26,21,24,17,26,25,20,15,18,21,20,15,21,24,13,27,22,18,17,15,13,16,14,13,13,20,12,12,14,14,15,14,5,17,27,19,16,22,22,9,16,9,8,15,6,12,12,11,11,14,10,20,17,9,15,18,13,12,9,6,10,8,8,15,9,7,6,4,13,7,5,8,7,8,8,3,6,5,4,5,2,8,7,7,3,2,8,6,2,4,3,4,4,2,2,9,5,4,4,2,1,4,1,3,3,1,6,4,0,4,2,4,3,0,1,0,2,1,2,1,0,5,2,1,1,1,3,1,1,1,3,2,1,1,0,2,0]},{"lo":35,"hi":39,"n":2089,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,0,0,1,2,0,2,3,3,2,2,2,1,4,2,9,3,3,6,4,7,5,4,11,8,10,16,14,10,9,11,15,19,18,21,17,26,29,28,24,36,32,32,27,37,34,24,30,40,37,36,40,31,37,24,19,29,32,31,25,23,24,26,24,22,29,20,23,23,18,21,20,12,17,13,15,23,12,13,9,10,18,12,7,5,16,11,7,8,9,12,8,11,5,12,8,5,6,9,12,4,6,6,6,9,6,6,11,6,4,5,10,6,11,5,8,7,6,6,9,14,5,10,8,4,6,6,8,5,13,7,6,1,2,3,9,2,3,3,4,8,5,5,4,4,4,4,11,3,8,9,4,4,6,1,4,2,3,3,3,2,7,3,1,6,5,8,0,1,2,5,3,5,2,4,1,5,2,4,2,4,1,4,2,4,2,2,1,3,1,4,2,2,1,3,1,4,1,2,2,1,1,3,3,2,2,2,2,5,1,1,2,2,1,1,2,2,1,1,1,0,0,4,0,0,0,1,1,1,2,1,4,0,0,2,0,0,2,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0]},{"lo":40,"hi":44,"n":2330,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,1,0,0,0,1,1,1,0,0,1,1,1,1,1,1,1,1,2,3,4,2,6,7,2,9,5,5,8,10,5,6,9,9,7,16,14,14,16,14,26,17,22,25,24,22,32,33,30,34,30,36,40,45,33,39,38,38,35,29,27,41,30,36,20,33,26,29,45,23,26,34,31,23,22,17,32,25,17,24,20,5,8,16,20,20,17,17,20,15,17,17,17,10,11,10,15,12,11,8,17,12,8,13,12,13,15,10,8,9,9,12,8,6,7,17,8,10,3,8,6,7,7,9,5,3,6,8,13,9,7,6,8,7,7,2,9,6,4,4,5,6,6,7,8,1,9,3,4,8,4,6,7,6,5,5,7,5,3,4,5,8,6,8,7,8,6,7,0,3,3,5,3,4,10,4,5,8,1,2,4,4,7,4,1,2,4,4,1,3,2,3,3,2,2,3,2,0,4,1,2,1,3,6,1,1,5,5,1,2,0,0,1,1,3,0,2,1,1,4,0,0,1,3,0,0,1,0,1,1,0,1,1,1,1,2,0,1,1,1,1,0,0,0,0,0,1,1,0,0,1,0,0,0,0]},{"lo":45,"hi":49,"n":2293,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,3,0,0,0,0,0,1,0,0,1,0,3,0,1,2,1,1,3,0,1,6,3,5,2,5,8,9,8,5,11,5,6,10,10,16,12,12,14,22,14,20,22,21,30,20,31,23,16,25,31,38,26,43,42,34,37,36,44,31,37,54,33,47,39,30,35,49,31,23,23,38,25,26,20,19,25,23,21,30,25,23,22,18,28,18,18,22,14,10,8,16,17,21,13,11,15,19,7,9,10,10,13,6,9,8,6,10,10,10,10,12,13,6,8,9,10,13,8,12,11,12,4,9,8,7,5,4,4,6,7,2,7,7,4,6,6,5,2,3,8,7,7,4,5,5,5,3,4,7,7,5,4,7,2,8,1,2,2,7,4,1,2,2,5,4,4,2,2,2,4,2,6,3,2,1,0,5,2,4,2,3,4,6,3,1,4,3,3,1,3,0,0,5,1,1,2,2,3,1,1,1,0,1,1,2,2,1,2,1,1,1,1,1,0,0,4,2,0,2,0,0,0,2,1,1,1,1,1,1,1,1,0,1,0,1,0,2,0,0,0,0,4,1,0,0,0,0,0]},{"lo":50,"hi":54,"n":1485,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0,1,0,0,1,1,1,2,3,0,2,1,1,1,2,4,2,3,3,3,4,4,5,4,5,5,7,5,5,4,11,10,13,10,10,13,11,15,13,18,16,18,27,21,15,16,21,22,22,29,33,30,18,21,22,23,20,19,16,20,8,13,15,20,14,16,22,17,16,11,16,16,21,13,22,11,10,7,12,18,15,12,12,13,10,9,16,14,11,2,7,10,11,9,11,6,11,12,9,7,10,11,1,10,5,13,1,5,10,13,5,4,6,4,6,7,4,2,4,7,5,2,4,4,11,3,6,2,6,5,2,6,2,4,2,6,3,3,1,0,1,2,4,3,2,1,3,3,1,4,3,2,1,4,6,5,1,4,4,2,1,2,5,3,3,2,1,0,2,1,0,5,2,2,1,0,2,2,1,1,2,0,2,3,1,0,0,3,1,0,1,1,2,1,0,3,1,1,2,0,0,2,2,1,1,0,2,1,1,0,1,1,1,2,0,0,0,2,2,0,0,0,0,1,0,2,0,0,0,0,0,0,0,0,1,0,0]},{"lo":55,"hi":59,"n":765,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,4,2,0,0,1,3,0,0,1,0,0,1,2,1,1,0,1,2,2,3,1,5,1,3,1,4,4,6,3,6,4,1,2,5,5,4,9,4,11,8,7,7,5,10,10,6,14,13,8,10,12,11,11,14,11,9,8,13,11,7,10,10,9,12,11,13,8,10,5,5,5,14,10,7,9,4,9,9,7,6,10,7,10,3,6,5,9,9,6,4,5,6,3,5,5,2,2,3,5,6,5,4,3,5,4,2,5,3,4,1,1,1,2,2,2,1,4,3,1,0,1,1,2,4,0,1,1,2,2,1,2,3,0,6,1,1,4,1,3,1,2,2,4,2,3,2,1,1,1,1,2,2,2,0,2,0,2,1,0,2,1,2,2,2,1,3,0,0,1,0,0,0,1,1,2,2,2,1,2,1,2,1,0,1,0,0,1,1,1,2,0,0,2,0,0,0,0,1,1,2,1,0,0,2,0,2,1,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0]},{"lo":60,"hi":64,"n":340,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,1,1,1,2,1,0,1,2,3,1,0,1,0,3,2,0,2,2,1,3,4,2,3,3,3,2,2,4,2,5,2,2,4,1,7,3,3,2,3,1,4,3,3,6,3,6,8,6,6,6,8,6,4,3,0,5,3,6,7,5,8,7,2,4,4,5,1,4,5,4,3,5,2,5,0,0,4,1,5,4,0,0,3,3,2,3,3,2,1,0,2,1,1,2,1,2,2,1,0,1,0,1,3,2,0,3,2,0,3,1,1,2,0,1,0,0,2,1,2,0,1,0,2,0,0,2,2,2,1,0,1,1,0,0,0,0,0,1,3,2,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0]},{"lo":65,"hi":69,"n":119,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,1,0,0,1,1,0,0,0,0,0,1,0,0,2,0,0,0,1,1,2,0,0,1,0,0,2,2,1,0,0,0,2,2,1,2,2,0,1,2,2,3,3,1,0,2,2,3,1,1,4,0,1,0,1,1,1,1,0,2,2,1,2,0,3,0,0,3,0,3,0,3,0,3,0,0,1,0,3,0,3,1,0,1,0,0,0,0,1,0,0,0,1,1,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,1,1,1,2,1,0,0,0,1,2,0,0,0,2,0,0,1,0,0,0,0,0,1,1,0,0,0,0,2,0,0,0,0,1,0,2,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"lo":70,"hi":99,"n":23,"c":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}]}}};
+  var WR = 120.5833, NS = "http://www.w3.org/2000/svg";
+  var AGE = C.groups.M.ages.map(function (a) { return a.hi > 90 ? a.lo + " and over" : a.lo + " to " + a.hi; });
+  function el(tag, at, parent, txt) { var e = document.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); if (txt != null) e.textContent = txt; if (parent) parent.appendChild(e); return e; }
+  function hm(m) { var h = Math.floor(m / 60), r = Math.floor(m - h * 60); return h + ":" + (r < 10 ? "0" : "") + r; }
+  function hms(m) { var s = Math.round(m * 60), h = Math.floor(s / 3600), mm = Math.floor(s % 3600 / 60), ss = s % 60; return h + ":" + (mm < 10 ? "0" : "") + mm + ":" + (ss < 10 ? "0" : "") + ss; }
+  function sum(a) { return a.reduce(function (x, y) { return x + y; }, 0); }
+  function slower(c, x) { // runners with a time above x, from one-minute counts
+    var k = Math.ceil(x) - 1 - 120, n = 0; if (k < 0) return sum(c);   // bin k holds (k, k+1] minutes
+    for (var i = k + 1; i < c.length; i++) n += c[i];
+    return n + (k < c.length ? c[k] * (k + 121 - x) : 0);
+  }
+  function counts(g, a) { if (g === "all") return C.all; return a >= 0 ? C.groups[g].ages[a].c : C.groups[g].c; }
+  var you = null, G = "all";
+
+  // ---- continuum histogram ----
+  var box = document.getElementById("cont"), read = document.getElementById("cont-read"), cur = 50, bars = [];
+  function bins() { var c = counts(G, -1), b = []; for (var i = 0; i < c.length; i += 2) b.push((c[i] || 0) + (c[i + 1] || 0)); return b; }
+  function show(i) {
+    var b = bins(); cur = Math.max(0, Math.min(b.length - 1, i));
+    bars.forEach(function (r, j) { r.classList.toggle("on", j === cur); });
+    var c = counts(G, -1), lo = 120 + 2 * cur, n = sum(c), sl = slower(c, lo + 2);
+    read.textContent = hm(lo) + " to " + hm(lo + 2) + ": " + b[cur].toLocaleString("en-US") + " runners; finishing at " + hm(lo + 2) + " puts you ahead of " + (100 * sl / n).toFixed(1) + "% of " + (G === "all" ? "the field" : G === "F" ? "women" : "men");
+  }
+  function draw() {
+    var b = bins(), W = Math.max(300, box.clientWidth - 20), H = W < 560 ? 270 : 340, L = 10, R = 10, T = 30, B = 34;
+    var X = function (m) { return L + (m - 110) / (420 - 110) * (W - L - R); }, ym = Math.max.apply(null, b) * 1.08, Y = function (v) { return T + (1 - v / ym) * (H - T - B); };
+    box.innerHTML = ""; bars = [];
+    var s = el("svg", { viewBox: "0 0 " + W + " " + H, width: W, height: H, tabindex: 0, role: "img",
+      "aria-label": "Histogram of Boston 2014 finish times from 2:00 to 7:00 in two-minute bins, with the 2:00:35 world record marked to the left of every finisher." }, box);
+    for (var m = 120; m <= 420; m += 60) { el("line", { class: "grid", x1: X(m), x2: X(m), y1: T, y2: H - B }, s); el("text", { x: X(m), y: H - B + 18, "text-anchor": "middle" }, s, hm(m)); }
+    var bw = X(122) - X(120);
+    b.forEach(function (v, i) { bars.push(el("rect", { class: "b", x: X(120 + 2 * i) + 0.3, y: Y(v), width: Math.max(0.8, bw - 0.6), height: Y(0) - Y(v) }, s)); });
+    if (G === "all") {
+      var d = "", n = C.n; C.lognorm.x.forEach(function (x, i) { d += (i ? "L" : "M") + X(x).toFixed(1) + " " + Y(C.lognorm.pdf[i] * n * 2).toFixed(1); });
+      el("path", { class: "fit", d: d }, s);
+    }
+    function mark(m, cls, lab, row, anchor) {
+      el("line", { class: "mk " + cls, x1: X(m), x2: X(m), y1: T - 22 + row * 14, y2: H - B }, s);
+      el("text", { class: "mlab " + cls, x: X(m) + (anchor === "end" ? -5 : 5), y: T - 12 + row * 14, "text-anchor": anchor || "start" }, s, lab);
+    }
+    mark(WR, "wr", "WR 2:00:35", 0);
+    var c = counts(G, -1), first = 0; while (!c[first]) first++;
+    var med = (function () { var n = sum(c), acc = 0; for (var i = 0; i < c.length; i++) { acc += c[i]; if (acc >= n / 2) return 120 + i + 0.5; } })();
+    mark(G === "all" ? C.winner : 120 + first, "", (W < 560 ? "1st " : "fastest ") + (G === "all" ? hms(C.winner) : "near " + hm(121 + first)), 1);
+    mark(G === "all" ? C.median : med, "", "median " + hm(G === "all" ? C.median : med), 0);
+    if (you != null) mark(you, "you", "you " + hm(you), W < 560 ? 2 : 1, you > 380 ? "end" : "start");
+    s.addEventListener("mousemove", function (e) { var r = s.getBoundingClientRect(), x = (e.clientX - r.left) * W / r.width; show(Math.floor(((x - L) / (W - L - R) * 310 + 110 - 120) / 2)); });
+    s.addEventListener("keydown", function (e) { if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); show(cur + (e.key === "ArrowRight" ? 1 : -1)); } });
+    s.addEventListener("focus", function () { show(cur); });
+  }
+  document.querySelectorAll("#cont-seg button").forEach(function (b) {
+    b.addEventListener("click", function () { G = b.dataset.g; document.querySelectorAll("#cont-seg button").forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); }); draw(); });
+  });
+  var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(draw, 120); });
+
+  // ---- lookup ----
+  var tIn = document.getElementById("you-t"), gSel = document.getElementById("you-g"), aSel = document.getElementById("you-a");
+  if (tIn) {
+    AGE.forEach(function (lab, i) { var o = document.createElement("option"); o.value = i; o.textContent = lab; aSel.appendChild(o); });
+    var parse = function (s) { var p = s.trim().split(/[:.\s]+/).map(Number); if (p.some(isNaN) || p.length < 2 || p.length > 3) return null; return p.length === 3 ? p[0] * 60 + p[1] + p[2] / 60 : p[0] * 60 + p[1]; };
+    var look = function () {
+      aSel.disabled = gSel.value === "all"; if (aSel.disabled) aSel.value = "-1";
+      var x = parse(tIn.value), hint = document.getElementById("you-hint");
+      if (x == null || x < 120 || x > 420) { hint.textContent = "Enter a time between 2:00 and 7:00, like 3:30 or 4:05:20."; hint.className = "hint warn"; you = null; draw(); return; }
+      hint.textContent = "h:mm:ss or h:mm, between 2:00 and 7:00"; hint.className = "hint"; you = x;
+      var g = gSel.value, a = +aSel.value, c = counts(g, a), n = sum(c), pct = 100 * slower(c, x) / n;
+      var who = g === "all" ? "the whole field" : (g === "F" ? "women" : "men") + (a >= 0 ? " aged " + AGE[a] : "");
+      document.getElementById("you-pct").textContent = pct.toFixed(1) + "%";
+      document.getElementById("you-of").textContent = "of " + who + " (" + n.toLocaleString("en-US") + ") finished behind you";
+      document.getElementById("you-pin").style.left = pct.toFixed(2) + "%";
+      var km = 42.195 * WR / x;
+      document.getElementById("you-text").textContent = hms(x) + " is " + (100 * (x - WR) / WR).toFixed(1) + "% slower than the 2:00:35 record. Run at even pace, you would have been at " + km.toFixed(1) + " km when the record holder crossed the line, " + (42.195 - km).toFixed(1) + " km short." + (n < 100 ? " This group has fewer than 100 finishers, so read the share loosely." : "");
+      draw();
+    };
+    [tIn, gSel, aSel].forEach(function (e) { e.addEventListener("input", look); e.addEventListener("change", look); });
+    look();
+  } else draw();
+})();
+</script>
 </body>
 </html>
