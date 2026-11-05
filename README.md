@@ -1,6 +1,9 @@
 # The Marathon Performance Continuum
 
-Where does a 3:00 or a 4:00 marathon sit relative to the world record? This repo fits the finish-time distribution of all 31,842 runners in the 2014 Boston Marathon, marks Sabastian Sawe's 1:59:30 world record on the same axis, and models the fast tail with Extreme Value Theory.
+Where does a 3:00 or a 4:00 marathon sit relative to the 1:59:30 world record?
+Against all 31,842 finishers of the 2014 Boston Marathon, nobody ran faster than the record: it sits 2.4 standard deviations below the field mean, the 3:52 median took 94% longer, and a 3:00 finishes ahead of 92.6% of the field.
+
+This repo fits the finish-time distribution of that field, marks Sabastian Sawe's world record on the same axis, and models the fast tail with Extreme Value Theory.
 
 [Live site](https://lyhjeremy.github.io/marathon-performance-continuum/) · [Write-up](https://lyhjeremy.github.io/marathon-performance-continuum/overview/)
 

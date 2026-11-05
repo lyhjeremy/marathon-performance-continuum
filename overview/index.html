@@ -287,6 +287,17 @@
   .pbar-k { display: flex; justify-content: space-between; font: 400 11.5px/1.3 var(--mono); color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; }
   .bib-body p { font-family: var(--sans); font-size: 15.5px; line-height: 1.5; color: var(--ink2); margin: 0; max-width: 62ch; }
   @media (max-width: 640px) { .bib-body { padding: 14px 12px; } }
+
+  /* At a glance: a results slip, label column in mono, dashed rules. */
+  .slip { margin-top: 30px; border: 1px solid var(--ink); background: var(--card); max-width: 860px; }
+  .slip h2 { margin: 0; padding: 8px 14px; font: 600 12px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); border-bottom: 1px solid var(--ink); max-width: none; width: auto; display: block; }
+  .slip dl { margin: 0; }
+  .slip dl > div { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: 0 14px; padding: 8px 14px; border-top: 1px dashed var(--rule); }
+  .slip dl > div:first-child { border-top: 0; }
+  .slip dt { font: 600 12.5px/1.5 var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .slip dd { margin: 0; font-family: var(--sans); font-size: 15px; line-height: 1.5; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .slip dd b { font-weight: 700; }
+  @media (max-width: 560px) { .slip dl > div { grid-template-columns: minmax(0, 1fr); } }
 </style>
 </head>
 <body>
@@ -334,6 +345,18 @@
            of 43.2%.</p>
       </div>
     </div>
+
+    <section class="slip" aria-labelledby="glance-h">
+      <h2 id="glance-h">At a glance</h2>
+      <dl>
+        <div><dt>Question</dt><dd>Where does the 1:59:30 marathon world record sit against a full race field?</dd></div>
+        <div><dt>Data</dt><dd>Boston Marathon 2014, runners only, 2:00 to 7:00: <b>n = 31,842</b> finishers</dd></div>
+        <div><dt>Method</dt><dd>Shifted log-normal fit to the body; generalized Pareto on the fastest 5% (1,593 runners under 2:56)</dd></div>
+        <div><dt>Check</dt><dd>Counted, not fitted: finishers faster than the record, against the winner's 2:09</dd></div>
+        <div><dt>Result</dt><dd><b>0 of 31,842</b> beat it; the record is 2.4 SD below the mean of 4:03, and the 3:52 median is 94% slower. Tail shape &xi; = &minus;0.147 (bounded)</dd></div>
+        <div><dt>Limitation</dt><dd>One qualifying race in one year, so the field is faster than a general-entry marathon. No holdout race.</dd></div>
+      </dl>
+    </section>
   </section>
 </div>
 
